@@ -28,14 +28,14 @@
 var visible; //is the GUI visible or not?
 var gui; //the gui object itself
 
-var canvas;
-
 var manager;
 
 let bodyImage;
 let worldImage;
 let gridImage;
 let streamImage;
+
+var centre = new p5.Vector();
 
 function preload() {
   // preload() runs once
@@ -46,16 +46,8 @@ function preload() {
 }
 
 function windowResized() {
-  //   var canvasDiv = document.getElementById("BodyElements");
-  //   //lots of strangeness with offsetWidth vs. client width
-  //   //https://www.w3schools.com/jsref/prop_element_clientwidth.asp
-  //   //https://www.w3schools.com/css/css_boxmodel.asp
-  //   //https://stackoverflow.com/questions/52016682/get-divs-width-for-p5-js
-  //   //https://github.com/processing/p5.js/issues/193
-  //   var canvasWidth = canvasDiv.offsetWidth;
-  //   var canvasHeight = canvasDiv.offsetHeight;
-  //   //https://p5js.org/reference/#/p5/resizeCanvas
-  //   resizeCanvas(canvasWidth, canvasHeight);
+  resizeCanvas(windowWidth, windowHeight);
+  centre.set(width / 2, height / 2);
 }
 
 function setup() {
@@ -67,12 +59,8 @@ function setup() {
   //https://github.com/processing/p5.js/wiki/Beyond-the-canvas
   //https://github.com/processing/p5.js/wiki/Positioning-your-canvas
 
-  //   var canvasDiv = document.getElementById("BodyElements");
-  //   var canvasWidth = canvasDiv.offsetWidth;
-  //   var canvasHeight = canvasDiv.offsetHeight;
-  // var canvas = createCanvas(canvasWidth, desiredHeight);
-  //   canvas = createCanvas(canvasWidth, canvasHeight);
-  createCanvas(800, 600);
+  createCanvas(windowWidth, windowHeight);
+  centre.set(width / 2, height / 2);
   //console.log(canvas);
   //   canvas.parent("BodyElements"); //https://github.com/processing/p5.js/wiki/Beyond-the-canvas
 
