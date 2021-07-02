@@ -1,6 +1,7 @@
 // Based on examples from: http://brm.io/matter-js/
 // Originally from https://github.com/shiffman/p5-matter/blob/master/01_basics/sketch.js
-
+//https://github.com/liabru/matter-wrap
+Matter.use("matter-wrap");
 var Engine = Matter.Engine;
 var Render = Matter.Render;
 var World = Matter.World;
@@ -117,19 +118,6 @@ function setup() {
   mouseConstraint.mouse.pixelRatio = pixelDensity();
   World.add(world, mouseConstraint);
 
-  //make walls to constrain everything
-  var params = {
-    isStatic: true,
-  };
-  ground = Bodies.rectangle(width / 2, height + 1, width, 1, params); //+1 so it's just below the bottom of the screen, Matter.Bodies.rectangle(x, y, width, height, [options])
-  leftWall = Bodies.rectangle(0, height / 2, 1, height, params);
-  rightWall = Bodies.rectangle(width, height / 2, 1, height, params);
-  ceiling = Bodies.rectangle(width / 2, 0, width, 1, params);
-  World.add(world, ground);
-  World.add(world, leftWall);
-  World.add(world, rightWall);
-  World.add(world, ceiling);
-
   //now create and add the particles to the world
   for (var i = 0; i < numberOfParticles; i++) {
     var particleXPosition = random(width);
@@ -140,7 +128,25 @@ function setup() {
     var aMatterCircle = Bodies.circle(
       particleXPosition,
       particleYPosition,
-      particleRadius
+      particleRadius,
+      {
+        // friction: 0,
+        // frictionAir: 0,
+
+        // set the body's wrapping bounds
+        plugin: {
+          wrap: {
+            min: {
+              x: 0,
+              y: 0,
+            },
+            max: {
+              x: windowWidth,
+              y: windowHeight,
+            },
+          },
+        },
+      }
     );
 
     var theParticleToRemember = new BodyElementsParticle(
@@ -161,7 +167,6 @@ function setup() {
   }
 
   // run the engine
-  //Engine.run(engine);
   Matter.Runner.run(engine);
 
   //set up default values for GUI variables
