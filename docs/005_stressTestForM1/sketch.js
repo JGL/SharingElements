@@ -122,7 +122,7 @@ function setup() {
   for (var i = 0; i < numberOfParticles; i++) {
     var particleXPosition = random(width);
     var particleYPosition = random(height);
-    var particleRadius = 8;
+    var particleRadius = 4;
 
     //https://brm.io/matter-js/docs/classes/Bodies.html
     var aMatterCircle = Bodies.circle(
