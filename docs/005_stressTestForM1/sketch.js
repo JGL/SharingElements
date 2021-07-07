@@ -29,7 +29,7 @@ var rightWall; //right wall as above
 var ceiling; //ceilling as above
 
 var particles = []; //array holding all the particles/circles in the simulation
-var numberOfParticles = 1000;
+var numberOfParticles = 2500;
 
 // GUI controls: https://github.com/bitcraftlab/p5.gui
 var visible; //is the GUI visible or not?
