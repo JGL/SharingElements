@@ -29,7 +29,7 @@ var rightWall; //right wall as above
 var ceiling; //ceilling as above
 
 var particles = []; //array holding all the particles/circles in the simulation
-var numberOfParticles = 5000;
+var numberOfParticles = 1000;
 
 // GUI controls: https://github.com/bitcraftlab/p5.gui
 var visible; //is the GUI visible or not?
@@ -122,7 +122,7 @@ function setup() {
   for (var i = 0; i < numberOfParticles; i++) {
     var particleXPosition = random(width);
     var particleYPosition = random(height);
-    var particleRadius = 4;
+    var particleRadius = 8;
 
     //https://brm.io/matter-js/docs/classes/Bodies.html
     var aMatterCircle = Bodies.circle(
