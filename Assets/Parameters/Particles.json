@@ -1,0 +1,34 @@
+{
+  "params" : [
+    {
+      "type" : "int",
+      "base" : {
+        "label" : "Count",
+        "value" : 4096,
+        "min" : 0,
+        "controlType" : "none",
+        "max" : 100
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Time",
+        "value" : 23.260507583618164,
+        "min" : 0,
+        "controlType" : "none",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Size",
+        "value" : 500,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1000
+      }
+    }
+  ]
+}

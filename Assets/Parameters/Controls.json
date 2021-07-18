@@ -1,0 +1,76 @@
+{
+  "params" : [
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Background",
+        "w" : 1,
+        "x" : 0,
+        "maxY" : 1,
+        "y" : 0,
+        "minY" : 0,
+        "z" : 0,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "string",
+      "base" : {
+        "label" : "Video Input",
+        "value" : "FaceTime HD  ",
+        "options" : [
+          "FaceTime HD  "
+        ],
+        "controlType" : "dropdown"
+      }
+    },
+    {
+      "type" : "bool",
+      "base" : {
+        "controlType" : "toggle",
+        "label" : "Show Video",
+        "value" : true
+      }
+    },
+    {
+      "type" : "bool",
+      "base" : {
+        "controlType" : "toggle",
+        "label" : "Show Points",
+        "value" : true
+      }
+    },
+    {
+      "type" : "bool",
+      "base" : {
+        "controlType" : "toggle",
+        "label" : "Show Lines",
+        "value" : true
+      }
+    },
+    {
+      "type" : "int",
+      "base" : {
+        "label" : "Particle Count",
+        "value" : 4096,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 100
+      }
+    },
+    {
+      "type" : "bool",
+      "base" : {
+        "controlType" : "toggle",
+        "label" : "Show Particles",
+        "value" : true
+      }
+    }
+  ]
+}

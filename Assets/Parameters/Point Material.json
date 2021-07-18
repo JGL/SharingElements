@@ -1,0 +1,43 @@
+{
+  "params" : [
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Color",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Point Size",
+        "value" : 8,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 16
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Aspect",
+        "value" : 0,
+        "min" : 0,
+        "controlType" : "none",
+        "max" : 1
+      }
+    }
+  ]
+}
