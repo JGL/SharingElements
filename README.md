@@ -4,7 +4,7 @@ An interactive body tracking installation
 
 ## Getting Started
 
-Clone Satin, Forge & Youi one folder up from this Template
+Clone Satin, Forge & Youi one folder up from this folder
 
 ```
 cd .. && git clone git@github.com:Hi-Rez/Satin.git && git clone git@github.com:Hi-Rez/Forge.git && git clone git@github.com:Hi-Rez/Youi.git
