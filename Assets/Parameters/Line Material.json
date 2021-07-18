@@ -1,0 +1,49 @@
+{
+  "params" : [
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Color",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Line Width",
+        "value" : 3,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 10
+      }
+    },
+    {
+      "type" : "float3",
+      "base" : {
+        "controlType" : "none",
+        "x" : 2032,
+        "maxX" : 1,
+        "y" : 1412,
+        "maxY" : 1,
+        "minX" : 0,
+        "z" : 1.4390934705734253,
+        "minZ" : 0,
+        "label" : "Resolution",
+        "minY" : 0,
+        "maxZ" : 1
+      }
+    }
+  ]
+}
