@@ -136,3 +136,6 @@ application.windows32
 application.windows64
 application.macosx
 out
+Podfile.lock
+BodyElements.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist
+Podfile.lock
