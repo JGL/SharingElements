@@ -64,13 +64,13 @@ N.B. If ruby -v doesn't report 3.0.1, you may have to restart Terminal.app in or
 git clone git@github.com:JGL/BodyElements.git
 ```
 
-Clone the Satin, Forge & Youi repositories:
+Clone the [Satin](https://github.com/Hi-Rez/Satin), [Forge](https://github.com/Hi-Rez/Forge) & [Youi](https://github.com/Hi-Rez/Youi) repositories:
 
 ```
 git clone git@github.com:Hi-Rez/Satin.git && git clone git@github.com:Hi-Rez/Forge.git && git clone git@github.com:Hi-Rez/Youi.git
 ```
 
-Install Bundler using:
+Install [Bundler](https://bundler.io/) using:
 
 ```
 sudo gem install bundler
@@ -95,7 +95,7 @@ Install the CocoaPod dependencies using Bundler:
 bundle exec pod install
 ```
 
-Finally, make sure to open the xcode workspace, not the xcode project:
+Finally, make sure to open the Xcode workspace, not the Xcode project:
 
 ```
 open BodyElements.xcworkspace
