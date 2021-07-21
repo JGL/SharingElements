@@ -11,9 +11,11 @@ Hardware specification for installation version:
 * [Logitech Brio Stream Webcam, Ultra HD 4K Streaming Edition](https://www.logitech.com/en-us/products/webcams/brio-4k-hdr-webcam.960-001105.html)
 
 Software requirements:
+* A GitHub account
 * [macOS 11.4 "Big Sur"](https://en.wikipedia.org/wiki/MacOS_Big_Sur)
 * [Xcode 12.5 or above](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
-* Command line access via SSH for your GitHub account. [See this guide to connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh).
+* Xcode command line tools, which can be installed via the command: ```xcode-select --install```
+* Command line access via SSH to your GitHub account. [See this guide to connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh).
 
 Software installation instructions:
 
