@@ -82,14 +82,14 @@ Use the [cd](https://en.wikipedia.org/wiki/Cd_(command)) command to open the fol
 cd BodyElements
 ```
 
-Install the Bundler dependencies specified in the Gemfile:
+Install the Bundler dependencies specified in the [Gemfile](https://guides.cocoapods.org/using/a-gemfile.html):
 
 ```
 bundle config set path vendor/bundle
 bundle install
 ```
 
-Install the CocoaPod dependencies using Bundler:
+Install the [CocoaPod](https://cocoapods.org/) dependencies using Bundler:
 
 ```
 bundle exec pod install
