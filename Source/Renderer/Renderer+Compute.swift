@@ -29,8 +29,12 @@ extension Renderer {
                 computeSystem.setParams([params])
             }
             
+            
             if let params = parseParameters(source: librarySource, key: "ComputeUniforms") {
                 params.label = "Compute"
+                if let computeParams = self.computeParams {
+                    params.setFrom(computeParams, setValues: true, setOptions: false)
+                }
                 computeUniforms = UniformBuffer(context: context, parameters: params)
                 computeParams = params
             }
@@ -61,6 +65,8 @@ extension Renderer {
     func updateBufferComputeUniforms() {
         if let uniforms = self.computeUniforms {
             uniforms.parameters.set("Count", particleCount.value)
+            uniforms.parameters.set("Time", getTime())
+            uniforms.parameters.set("Delta Time", deltaTime)
             uniforms.update()
         }
     }

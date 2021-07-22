@@ -1,7 +1,7 @@
 PODS:
   - Forge (1.0.9)
   - Satin (1.3.4)
-  - Youi (2.0.3):
+  - Youi (2.0.4):
     - Satin
 
 DEPENDENCIES:
@@ -20,7 +20,7 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Forge: abca50ae8838a6d745b9a4e204bc2cb800546cef
   Satin: c8b8c80e461918ab3ab8a03f1138a54cb0172fda
-  Youi: c8c1cfb0b967210716083cedc7f81367b068361d
+  Youi: d10bf40e4e73a3d9fe484dc7e82d3193b413f9ef
 
 PODFILE CHECKSUM: a8d5daacac84dd91646781c27f26370a8cff9e34
 

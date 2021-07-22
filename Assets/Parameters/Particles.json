@@ -4,7 +4,7 @@
       "type" : "int",
       "base" : {
         "label" : "Count",
-        "value" : 4096,
+        "value" : 262144,
         "min" : 0,
         "controlType" : "none",
         "max" : 100
@@ -14,7 +14,7 @@
       "type" : "float",
       "base" : {
         "label" : "Time",
-        "value" : 23.260507583618164,
+        "value" : 192,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -23,11 +23,101 @@
     {
       "type" : "float",
       "base" : {
-        "label" : "Size",
-        "value" : 500,
+        "label" : "Grid Size",
+        "value" : 1000,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1000
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Curl Scale",
+        "value" : 0.012588381767272949,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 0.05000000074505806
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Homing",
+        "value" : 0,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Curl",
+        "value" : 0.77629655599594116,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Body",
+        "value" : 0.5,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Wind",
+        "value" : 0.5,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Spherical",
+        "value" : 0.41278675198554993,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Radius",
+        "value" : 75,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1000
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Damping",
+        "value" : 0.125,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Delta Time",
+        "value" : -648672512,
+        "min" : 0,
+        "controlType" : "none",
+        "max" : 1
       }
     }
   ]

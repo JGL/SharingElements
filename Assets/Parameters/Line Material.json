@@ -6,7 +6,7 @@
         "maxZ" : 1,
         "minZ" : 0,
         "label" : "Color",
-        "w" : 1,
+        "w" : 0.5,
         "x" : 1,
         "maxY" : 1,
         "y" : 1,
@@ -20,29 +20,122 @@
       }
     },
     {
-      "type" : "float",
+      "type" : "float4",
       "base" : {
-        "label" : "Line Width",
-        "value" : 3,
-        "min" : 0,
-        "controlType" : "slider",
-        "max" : 10
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Resolution",
+        "w" : 2,
+        "x" : 1680,
+        "maxY" : 1,
+        "y" : 2050,
+        "minY" : 0,
+        "z" : 0.81951218843460083,
+        "maxX" : 1,
+        "controlType" : "none",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
       }
     },
     {
       "type" : "float3",
       "base" : {
         "controlType" : "none",
-        "x" : 2032,
+        "x" : 0,
         "maxX" : 1,
-        "y" : 1412,
+        "y" : 0,
         "maxY" : 1,
         "minX" : 0,
-        "z" : 1.4390934705734253,
+        "z" : 1000,
         "minZ" : 0,
-        "label" : "Resolution",
+        "label" : "Camera Position",
         "minY" : 0,
         "maxZ" : 1
+      }
+    },
+    {
+      "type" : "float3",
+      "base" : {
+        "controlType" : "none",
+        "x" : 0.33945301175117493,
+        "maxX" : 1,
+        "y" : 0,
+        "maxY" : 1,
+        "minX" : 0,
+        "z" : 0,
+        "minZ" : 0,
+        "label" : "Camera Right",
+        "minY" : 0,
+        "maxZ" : 1
+      }
+    },
+    {
+      "type" : "float3",
+      "base" : {
+        "controlType" : "none",
+        "x" : 0,
+        "maxX" : 1,
+        "y" : 0.41421350836753845,
+        "maxY" : 1,
+        "minX" : 0,
+        "z" : 0,
+        "minZ" : 0,
+        "label" : "Camera Up",
+        "minY" : 0,
+        "maxZ" : 1
+      }
+    },
+    {
+      "type" : "float3",
+      "base" : {
+        "controlType" : "none",
+        "x" : 0,
+        "maxX" : 1,
+        "y" : 0,
+        "maxY" : 1,
+        "minX" : 0,
+        "z" : -0.99999994039535522,
+        "minZ" : 0,
+        "label" : "Camera Forward",
+        "minY" : 0,
+        "maxZ" : 1
+      }
+    },
+    {
+      "type" : "float2",
+      "base" : {
+        "maxX" : 1,
+        "controlType" : "none",
+        "x" : 0.0099999997764825821,
+        "y" : 4000,
+        "maxY" : 1,
+        "minX" : 0,
+        "label" : "Near Far",
+        "minY" : 0
+      }
+    },
+    {
+      "type" : "float2",
+      "base" : {
+        "maxX" : 1,
+        "controlType" : "none",
+        "x" : 1.0000025033950806,
+        "y" : 0.010000024922192097,
+        "maxY" : 1,
+        "minX" : 0,
+        "label" : "Camera Depth",
+        "minY" : 0
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Line Width",
+        "value" : 20,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 20
       }
     }
   ]

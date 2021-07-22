@@ -106,7 +106,7 @@
 			);
 			sourceTree = "<group>";
 		};
-		E13B5558230F3D42009E143D /* Shared */ = {
+		E13B5558230F3D42009E143D /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
 				E13B555A230F3D42009E143D /* Renderer.swift */,
@@ -117,7 +117,7 @@
 				E1B13EA526A2507B00F1AE5A /* Renderer+Save+Load.swift */,
 				E1FEC32126A4A55E003E4C49 /* Renderer+Compute.swift */,
 			);
-			path = Shared;
+			path = Renderer;
 			sourceTree = "<group>";
 		};
 		E13B5562230F3D44009E143D /* Products */ = {
@@ -144,7 +144,7 @@
 				E1FEC31826A49321003E4C49 /* Meshes */,
 				E1FEC31726A49319003E4C49 /* Materials */,
 				E1B13EA226A2501300F1AE5A /* Utilities */,
-				E13B5558230F3D42009E143D /* Shared */,
+				E13B5558230F3D42009E143D /* Renderer */,
 				E13B5585230F3D44009E143D /* macOS */,
 			);
 			path = Source;

@@ -6,7 +6,7 @@
         "maxZ" : 1,
         "minZ" : 0,
         "label" : "Color",
-        "w" : 1,
+        "w" : 0.51631861925125122,
         "x" : 1,
         "maxY" : 1,
         "y" : 1,
@@ -23,10 +23,30 @@
       "type" : "float",
       "base" : {
         "label" : "Point Size",
-        "value" : 8,
+        "value" : 6,
         "min" : 0,
         "controlType" : "slider",
         "max" : 16
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Sigma",
+        "value" : 0.32499998807907104,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Power",
+        "value" : 0.25,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
       }
     }
   ]

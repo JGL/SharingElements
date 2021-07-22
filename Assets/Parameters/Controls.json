@@ -35,7 +35,23 @@
       "base" : {
         "controlType" : "toggle",
         "label" : "Show Video",
+        "value" : false
+      }
+    },
+    {
+      "type" : "bool",
+      "base" : {
+        "controlType" : "toggle",
+        "label" : "Flip Video",
         "value" : true
+      }
+    },
+    {
+      "type" : "bool",
+      "base" : {
+        "controlType" : "toggle",
+        "label" : "Update Pose",
+        "value" : false
       }
     },
     {
@@ -58,10 +74,26 @@
       "type" : "int",
       "base" : {
         "label" : "Particle Count",
-        "value" : 4096,
+        "value" : 262144,
         "min" : 0,
         "controlType" : "inputfield",
         "max" : 100
+      }
+    },
+    {
+      "type" : "bool",
+      "base" : {
+        "controlType" : "button",
+        "label" : "Reset Particles",
+        "value" : false
+      }
+    },
+    {
+      "type" : "bool",
+      "base" : {
+        "controlType" : "toggle",
+        "label" : "Update Particles",
+        "value" : true
       }
     },
     {

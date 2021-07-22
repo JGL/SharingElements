@@ -25,6 +25,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     lazy var particleCount: IntParameter = {
         let param = IntParameter("Particle Count", 4096, .inputfield) { value in
             self.spriteMesh.instanceCount = value
+            self.computeSystem.count = value
         }
         return param
     }()
@@ -46,6 +47,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     
     lazy var spriteMaterial: SpriteMaterial = {
         let material = SpriteMaterial(pipelinesURL: pipelinesURL)
+        material.delegate = self
         material.blending = .additive
         material.depthWriteEnabled = false
         return material
@@ -137,11 +139,34 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     // MARK: - Parameters
     
     var bgColor = Float4Parameter("Background", [1, 1, 1, 1], .colorpicker)
+    
+    lazy var updatePose: BoolParameter = {
+        return BoolParameter("Update Pose", true, .toggle)
+    }()
+    
+    lazy var updateParticles: BoolParameter = {
+        return BoolParameter("Update Particles", true, .toggle)
+    }()
+    
+    lazy var resetParticles: BoolParameter = {
+        let param = BoolParameter("Reset Particles", false, .button) { value in
+            if value {
+                self.computeSystem.reset()
+            }
+        }
+        return param
+    }()
+    
+    
     lazy var showVideo: BoolParameter = {
         let param = BoolParameter("Show Video", true, .toggle) { value in
             self.videoMesh.visible = value
         }
         return param
+    }()
+    
+    lazy var flipVideo: BoolParameter = {
+        BoolParameter("Flip Video", true, .toggle)
     }()
     
     lazy var showPoints: BoolParameter = {
@@ -170,9 +195,13 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         params.append(bgColor)
         params.append(videoInput)
         params.append(showVideo)
+        params.append(flipVideo)
+        params.append(updatePose)
         params.append(showPoints)
         params.append(showLines)
         params.append(particleCount)
+        params.append(resetParticles)
+        params.append(updateParticles)
         params.append(showParticles)
         return params
     }()
@@ -182,19 +211,18 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     lazy var videoMaterial: BasicTextureMaterial = {
         let mat = BasicTextureMaterial(texture: self.videoTexture)
         mat.depthWriteEnabled = false
+        mat.delegate = self
         return mat
     }()
 
     lazy var lineMaterial: LineMaterial = {
         let mat = LineMaterial(pipelinesURL: pipelinesURL, mtkView: mtkView)
-        mat.depthWriteEnabled = false
         mat.delegate = self
         return mat
     }()
     
     lazy var pointMaterial: PointMaterial = {
         let mat = PointMaterial(pipelinesURL: pipelinesURL)
-        mat.depthWriteEnabled = false
         mat.delegate = self
         return mat
     }()
@@ -367,21 +395,36 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         Context(device, sampleCount, colorPixelFormat, depthPixelFormat, stencilPixelFormat)
     }()
     
-    lazy var camera: OrthographicCamera = {
-        OrthographicCamera()
+    lazy var camera: PerspectiveCamera = {
+        let camera = PerspectiveCamera()
+        camera.position = simd_make_float3(0.0, 0.0, 1000.0)
+        camera.near = 0.01
+        camera.far = 4000.0
+        return camera
     }()
     
-    lazy var cameraController: OrthographicCameraController = {
-        OrthographicCameraController(camera: camera, view: mtkView)
+    lazy var cameraController: PerspectiveCameraController = {
+        let cc = PerspectiveCameraController(camera: camera, view: mtkView)
+        cc.zoomScalar = 100.0
+        cc.translationScalar = 1.0
+        return cc
     }()
     
     lazy var renderer: Satin.Renderer = {
         Satin.Renderer(context: context, scene: scene, camera: camera)
     }()
     
-    lazy var startTime: CFAbsoluteTime = {
-        CFAbsoluteTimeGetCurrent()
+    lazy var startTime: Float = {
+        Float(CFAbsoluteTimeGetCurrent())
     }()
+    
+    lazy var lastTime: Float = {
+        Float(CFAbsoluteTimeGetCurrent())
+    }()
+    
+    var deltaTime: Float {
+        getTime() - lastTime
+    }
     
     override func setupMtkView(_ metalKitView: MTKView) {
         metalKitView.sampleCount = 1
@@ -399,9 +442,9 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     
     override func setup() {
         setupCamera()
-        setupObservers()
         setupMetalCompiler()
         setupLibrary()
+        setupObservers()
         load()
     }
     
@@ -411,29 +454,30 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     }
     
     func getTime() -> Float {
-        return Float(CFAbsoluteTimeGetCurrent() - startTime)
+        return Float(CFAbsoluteTimeGetCurrent()) - startTime
     }
 
     override func update() {
-        computeParams?.set("Time", getTime())
         cameraController.update()
         updateBufferComputeUniforms()
         updateInspector()
         
         if let texture = videoTexture, videoMesh.scale.x != Float(texture.width), videoMesh.scale.y != Float(texture.height) {
-            videoMesh.scale = simd_make_float3(Float(texture.width), Float(texture.height), 1)
+            videoMesh.scale = simd_make_float3((flipVideo.value ? -1.0 : 1.0) * Float(texture.width), Float(texture.height), 1)
         }
     }
     
     override func draw(_ view: MTKView, _ commandBuffer: MTLCommandBuffer) {
-        if spriteMesh.visible { computeSystem.update(commandBuffer) }
+        if updateParticles.value, spriteMesh.visible {
+            computeSystem.update(commandBuffer)
+        }
         guard let renderPassDescriptor = view.currentRenderPassDescriptor else { return }
         videoMaterial.texture = videoTexture
         renderer.draw(renderPassDescriptor: renderPassDescriptor, commandBuffer: commandBuffer)
     }
     
     override func resize(_ size: (width: Float, height: Float)) {
-        cameraController.resize(size)
+        camera.aspect = size.width / size.height
         renderer.resize(size)
     }
     
