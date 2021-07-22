@@ -11,9 +11,11 @@ Hardware specification for installation version:
 * [Logitech Brio Stream Webcam, Ultra HD 4K Streaming Edition](https://www.logitech.com/en-us/products/webcams/brio-4k-hdr-webcam.960-001105.html)
 
 Software requirements:
+* A GitHub account
 * [macOS 11.4 "Big Sur"](https://en.wikipedia.org/wiki/MacOS_Big_Sur)
 * [Xcode 12.5 or above](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
-* Command line access via SSH for your GitHub account. [See this guide to connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh).
+* Xcode command line tools, which can be installed via the command: ```xcode-select --install```
+* Command line access via SSH to your GitHub account. [See this guide to connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh).
 
 Software installation instructions:
 
@@ -62,13 +64,13 @@ N.B. If ruby -v doesn't report 3.0.1, you may have to restart Terminal.app in or
 git clone git@github.com:JGL/BodyElements.git
 ```
 
-Clone the Satin, Forge & Youi repositories:
+Clone the [Satin](https://github.com/Hi-Rez/Satin), [Forge](https://github.com/Hi-Rez/Forge) & [Youi](https://github.com/Hi-Rez/Youi) repositories:
 
 ```
 git clone git@github.com:Hi-Rez/Satin.git && git clone git@github.com:Hi-Rez/Forge.git && git clone git@github.com:Hi-Rez/Youi.git
 ```
 
-Install Bundler using:
+Install [Bundler](https://bundler.io/) using:
 
 ```
 sudo gem install bundler
@@ -80,20 +82,20 @@ Use the [cd](https://en.wikipedia.org/wiki/Cd_(command)) command to open the fol
 cd BodyElements
 ```
 
-Install the Bundler dependencies specified in the Gemfile:
+Install the Bundler dependencies specified in the [Gemfile](https://guides.cocoapods.org/using/a-gemfile.html):
 
 ```
 bundle config set path vendor/bundle
 bundle install
 ```
 
-Install the CocoaPod dependencies using Bundler:
+Install the [CocoaPod](https://cocoapods.org/) dependencies using Bundler:
 
 ```
 bundle exec pod install
 ```
 
-Finally, make sure to open the xcode workspace, not the xcode project:
+Finally, make sure to open the Xcode workspace, not the Xcode project:
 
 ```
 open BodyElements.xcworkspace
