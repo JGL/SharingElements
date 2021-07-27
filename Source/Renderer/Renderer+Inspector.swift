@@ -72,4 +72,10 @@ extension Renderer {
             _updateInspector = false
         }
     }
+    
+    public func toggleInspector()
+    {
+        guard let inspectorWindow = self.inspectorWindow else { return }
+        inspectorWindow.setIsVisible(!inspectorWindow.isVisible)
+    }
 }

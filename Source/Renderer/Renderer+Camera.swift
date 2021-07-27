@@ -88,7 +88,13 @@ extension Renderer {
         let width = CVPixelBufferGetWidth(imageBuffer)
         let height = CVPixelBufferGetHeight(imageBuffer)
 
-        if updatePose.value {
+        if fakePose.value {
+            linesMesh.visible = true
+            pointsMesh.visible = true
+            linesMesh.points = fakeLines
+            pointsMesh.points = fakePoints
+        }
+        else if updatePose.value {
             let handler = VNImageRequestHandler(cmSampleBuffer: sampleBuffer, options: [:])
             do {
                 try handler.perform([bodyPoseRequest])
@@ -98,8 +104,11 @@ extension Renderer {
                         let bodyPoints = try observation.recognizedPoints(.all)
                         linesMesh.visible = true
                         pointsMesh.visible = true
+                        
                         var points: [simd_float3] = []
-                        for (key, point) in bodyPoints {
+                        var lines: [simd_float3] = []
+                        
+                            for (key, point) in bodyPoints {
                             if let mesh = bodyMeshes[key] {
                                 if point.location.y < 0.99999 {
                                     var pos = VNImagePointForNormalizedPoint(point.location, width, height)
@@ -114,10 +123,8 @@ extension Renderer {
                                 }
                             }
                         }
-
+                        
                         pointsMesh.points = points
-
-                        var lines: [simd_float3] = []
 
                         if leftWristMesh.visible, leftElbowMesh.visible {
                             lines.append(leftWristMesh.position)
@@ -194,9 +201,34 @@ extension Renderer {
                             lines.append(rootMesh.position)
                         }
 
+                        if neckMesh.visible, rootMesh.visible {
+                            lines.append(neckMesh.position)
+                            lines.append(rootMesh.position)
+                        }
+                        
+                        if leftShoulderMesh.visible, rightShoulderMesh.visible,
+                           leftHipMesh.visible, rightHipMesh.visible {
+                            lines.append(leftShoulderMesh.position)
+                            lines.append(rightHipMesh.position)
+                            lines.append(rightShoulderMesh.position)
+                            lines.append(leftHipMesh.position)
+                            
+                            let quarter = simd_float3(repeating: 0.25)
+                            let half = simd_float3(repeating: 0.5)
+                            let threeQuarters = simd_float3(repeating: 0.75)
+                            
+                            lines.append(simd_mix(rightShoulderMesh.position, rightHipMesh.position, quarter))
+                            lines.append(simd_mix(leftShoulderMesh.position, leftHipMesh.position, quarter))
+                            lines.append(simd_mix(rightShoulderMesh.position, rightHipMesh.position, half))
+                            lines.append(simd_mix(leftShoulderMesh.position, leftHipMesh.position, half))
+                            lines.append(simd_mix(rightShoulderMesh.position, rightHipMesh.position, threeQuarters))
+                            lines.append(simd_mix(leftShoulderMesh.position, leftHipMesh.position, threeQuarters))
+                        }
+
+                        
                         linesMesh.points = lines
 
-//                    print(bodyPoints)
+//                        print(bodyPoints)
                     }
                     catch {
                         linesMesh.visible = false

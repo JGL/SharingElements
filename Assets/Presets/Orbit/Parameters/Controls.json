@@ -76,7 +76,7 @@
       "base" : {
         "controlType" : "toggle",
         "label" : "Show Points",
-        "value" : true
+        "value" : false
       }
     },
     {
@@ -84,7 +84,7 @@
       "base" : {
         "controlType" : "toggle",
         "label" : "Show Lines",
-        "value" : true
+        "value" : false
       }
     },
     {

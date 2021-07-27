@@ -14,7 +14,7 @@
       "type" : "float",
       "base" : {
         "label" : "Time",
-        "value" : 99.231796264648438,
+        "value" : 158.04463195800781,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -24,7 +24,7 @@
       "type" : "float",
       "base" : {
         "label" : "Point Size",
-        "value" : 8,
+        "value" : 16,
         "min" : 0,
         "controlType" : "slider",
         "max" : 32
@@ -64,16 +64,6 @@
       "type" : "float",
       "base" : {
         "label" : "Curl",
-        "value" : 0.075000002980232239,
-        "min" : 0,
-        "controlType" : "slider",
-        "max" : 1
-      }
-    },
-    {
-      "type" : "float",
-      "base" : {
-        "label" : "Homing",
         "value" : 0,
         "min" : 0,
         "controlType" : "slider",
@@ -83,8 +73,18 @@
     {
       "type" : "float",
       "base" : {
+        "label" : "Homing",
+        "value" : 1,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
         "label" : "Body",
-        "value" : 0.20684041082859039,
+        "value" : 0,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -134,7 +134,7 @@
       "type" : "float",
       "base" : {
         "label" : "Delta Time",
-        "value" : 0.054867982864379883,
+        "value" : 0.0420379638671875,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -154,7 +154,7 @@
       "type" : "int",
       "base" : {
         "label" : "Lines",
-        "value" : 21,
+        "value" : 15,
         "min" : 0,
         "controlType" : "none",
         "max" : 100

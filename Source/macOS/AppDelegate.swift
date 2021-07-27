@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow?
     var viewController: Forge.ViewController!
     let renderer = Renderer()
-    
+
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if fileExists(getDocumentsAssetsDirectoryUrl()) {
             copyDirectory(atPath: getResourceAssetsDirectoryUrl().path, toPath: getDocumentsAssetsDirectoryUrl().path)
@@ -24,7 +24,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         else {
             copyDirectory(atPath: getResourceAssetsDirectoryUrl().path, toPath: getDocumentsAssetsDirectoryUrl().path, force: true)
         }
-                
+
         let window = NSWindow(
             contentRect: NSRect(origin: CGPoint(x: 100.0, y: 400.0), size: CGSize(width: 512, height: 512)),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
@@ -35,13 +35,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.window = window
         self.viewController = Forge.ViewController(nibName: .init("ViewController"), bundle: Bundle(for: Forge.ViewController.self))
         guard let view = self.viewController?.view else { return }
-        self.viewController.renderer = renderer
+        self.viewController.renderer = self.renderer
         guard let contentView = window.contentView else { return }
-        
+
         view.frame = contentView.bounds
         view.autoresizingMask = [.width, .height]
         contentView.addSubview(view)
-        
+
         window.setFrameAutosaveName("BodyElements")
         window.titlebarAppearsTransparent = true
         window.title = ""
@@ -52,11 +52,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.viewController?.view.removeFromSuperview()
         self.viewController.renderer = nil
         self.viewController = nil
-        renderer.cleanup()
+        self.renderer.cleanup()
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
         return true
     }
-}
 
+    // MARK: - Toggle Inspector
+
+    @IBAction func toggleInspector(_ sender: NSMenuItem) {
+        self.renderer.toggleInspector()
+    }
+}

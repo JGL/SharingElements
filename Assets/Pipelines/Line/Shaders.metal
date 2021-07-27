@@ -59,7 +59,7 @@ vertex CustomVertexData lineVertex(
     constant float3 *points [[buffer(VertexBufferCustom0)]]) {
     CustomVertexData out;
 
-    const int index = (int)id;
+    const int index = (int)id * 2;
     const float2 uv = in.uv.xy;
     const float aspect = uniforms.resolution.z;
 

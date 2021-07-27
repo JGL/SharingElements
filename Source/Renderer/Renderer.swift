@@ -18,6 +18,9 @@ import Youi
 class SpriteMaterial: LiveMaterial {}
 
 class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
+    // MARK: - Elements
+    var bodyComposition: Elements?
+    
     // MARK: - Particles
     
     var metalFileCompiler = MetalFileCompiler()
@@ -38,12 +41,29 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
                 computeEncoder.setBuffer(uniforms.buffer, offset: uniforms.offset, index: offset)
                 offset += 1
             }
+            
+            computeEncoder.setBuffer(self.linesMesh.pointsBuffer, offset: 0, index: offset)
+            offset += 1
+            
+            if let uniforms = self.colorUniforms {
+                computeEncoder.setBuffer(uniforms.buffer, offset: uniforms.offset, index: offset)
+                offset += 1
+            }
+            
+            if let uniforms = self.massUniforms {
+                computeEncoder.setBuffer(uniforms.buffer, offset: uniforms.offset, index: offset)
+                offset += 1
+            }
+            
+            
         }
         return compute
     }()
     
     var computeParams: ParameterGroup?
     var computeUniforms: UniformBuffer?
+    var colorUniforms: UniformBuffer?
+    var massUniforms: UniformBuffer?
     
     lazy var spriteMaterial: SpriteMaterial = {
         let material = SpriteMaterial(pipelinesURL: pipelinesURL)
@@ -100,6 +120,10 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     
     // MARK: - Paths
     
+    var dataURL: URL {
+        getDocumentsAssetsDirectoryUrl("Data")
+    }
+    
     var pipelinesURL: URL {
         getDocumentsAssetsDirectoryUrl("Pipelines")
     }
@@ -113,6 +137,8 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     var paramKeys: [String] {
         return [
             "Controls",
+            "Colors",
+            "Masses",
             "Video Material",
             "Point Material",
             "Line Material",
@@ -124,6 +150,8 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     var params: [String: ParameterGroup?] {
         return [
             "Controls": appParams,
+            "Colors": colorParams,
+            "Masses": massesParams,
             "Video Material": videoMaterial.parameters,
             "Point Material": pointMaterial.parameters,
             "Line Material": lineMaterial.parameters,
@@ -139,11 +167,65 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     // MARK: - Parameters
     
     var bgColor = Float4Parameter("Background", [1, 1, 1, 1], .colorpicker)
+    var fullscreen = BoolParameter("Fullscreen", false, .toggle)
+    var updatePose = BoolParameter("Update Pose", true, .toggle)
+    var fakePose = BoolParameter("Fake Pose", false, .toggle)
     
-    lazy var updatePose: BoolParameter = {
-        return BoolParameter("Update Pose", true, .toggle)
-    }()
+    var fakeLines: [simd_float3] = [
+        simd_make_float3(-261.898254, 173.549255, 0.000000),
+        simd_make_float3(-151.697144, 121.546570, 0.000000),
+        simd_make_float3(-151.697144, 121.546570, 0.000000),
+        simd_make_float3(-54.100342, 211.511841, 0.000000),
+        simd_make_float3(-54.100342, 211.511841, 0.000000),
+        simd_make_float3(22.713623, 207.329163, 0.000000),
+        simd_make_float3(-54.100342, 211.511841, 0.000000),
+        simd_make_float3(-29.878479, -27.130432, 0.000000),
+        simd_make_float3(-29.878479, -27.130432, 0.000000),
+        simd_make_float3(-35.814880, -198.462769, 0.000000),
+        simd_make_float3(-35.814880, -198.462769, 0.000000),
+        simd_make_float3(-36.862549, -347.708466, 0.000000),
+        simd_make_float3(-29.878479, -27.130432, 0.000000),
+        simd_make_float3(17.489075, -27.816345, 0.000000),
+        simd_make_float3(22.713623, 207.329163, 0.000000),
+        simd_make_float3(22.052124, 311.769531, 0.000000),
+        simd_make_float3(22.713623, 207.329163, 0.000000),
+        simd_make_float3(99.527588, 203.146423, 0.000000),
+        simd_make_float3(99.527588, 203.146423, 0.000000),
+        simd_make_float3(171.808228, 94.605774, 0.000000),
+        simd_make_float3(171.808228, 94.605774, 0.000000),
+        simd_make_float3(279.950195, 116.137695, 0.000000),
+        simd_make_float3(99.527588, 203.146423, 0.000000),
+        simd_make_float3(64.856567, -28.502197, 0.000000),
+        simd_make_float3(64.856567, -28.502197, 0.000000),
+        simd_make_float3(88.286133, -194.944397, 0.000000),
+        simd_make_float3(88.286133, -194.944397, 0.000000),
+        simd_make_float3(93.564209, -352.168213, 0.000000),
+        simd_make_float3(64.856567, -28.502197, 0.000000),
+        simd_make_float3(17.489075, -27.816345, 0.000000)
+    ]
     
+    var fakePoints: [simd_float3] = [
+        simd_make_float3(68.444580, 311.264648, 0.000000),
+        simd_make_float3(-35.814880, -198.462769, 0.000000),
+        simd_make_float3(64.856567, -28.502197, 0.000000),
+        simd_make_float3(99.527588, 203.146423, 0.000000),
+        simd_make_float3(22.052124, 311.769531, 0.000000),
+        simd_make_float3(-151.697144, 121.546570, 0.000000),
+        simd_make_float3(-29.878479, -27.130432, 0.000000),
+        simd_make_float3(-54.100342, 211.511841, 0.000000),
+        simd_make_float3(93.564209, -352.168213, 0.000000),
+        simd_make_float3(-10.444885, 316.963684, 0.000000),
+        simd_make_float3(171.808228, 94.605774, 0.000000),
+        simd_make_float3(17.489075, -27.816345, 0.000000),
+        simd_make_float3(-261.898254, 173.549255, 0.000000),
+        simd_make_float3(-36.862549, -347.708466, 0.000000),
+        simd_make_float3(11.540833, 331.097412, 0.000000),
+        simd_make_float3(279.950195, 116.137695, 0.000000),
+        simd_make_float3(40.453857, 331.823853, 0.000000),
+        simd_make_float3(22.713623, 207.329163, 0.000000),
+        simd_make_float3(88.286133, -194.944397, 0.000000)
+    ]
+
     lazy var updateParticles: BoolParameter = {
         return BoolParameter("Update Particles", true, .toggle)
     }()
@@ -171,14 +253,14 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     
     lazy var showPoints: BoolParameter = {
         let param = BoolParameter("Show Points", true, .toggle) { value in
-            self.pointsMesh.visible = value
+            self.pointsContainer.visible = value
         }
         return param
     }()
     
     lazy var showLines: BoolParameter = {
         let param = BoolParameter("Show Lines", true, .toggle) { value in
-            self.linesMesh.visible = value
+            self.linesContainer.visible = value
         }
         return param
     }()
@@ -193,10 +275,12 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     lazy var appParams: ParameterGroup = {
         let params = ParameterGroup("Controls")
         params.append(bgColor)
+        params.append(fullscreen)
         params.append(videoInput)
         params.append(showVideo)
         params.append(flipVideo)
         params.append(updatePose)
+        params.append(fakePose)
         params.append(showPoints)
         params.append(showLines)
         params.append(particleCount)
@@ -205,6 +289,9 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         params.append(showParticles)
         return params
     }()
+    
+    var colorParams: ParameterGroup?
+    var massesParams: ParameterGroup?
     
     // MARK: - Graphics
     
@@ -227,12 +314,30 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         return mat
     }()
     
+    lazy var pointsContainer: Object = {
+       let container = Object()
+        container.label = "Points Container"
+        container.add(pointsMesh)
+        return container
+    }()
+    
     lazy var pointsMesh: PointMesh = {
-        PointMesh(points: [], material: pointMaterial)
+        let mesh = PointMesh(points: fakePoints, material: pointMaterial)
+        mesh.label = "Points"
+        return mesh
+    }()
+    
+    lazy var linesContainer: Object = {
+       let container = Object()
+        container.label = "Lines Container"
+        container.add(linesMesh)
+        return container
     }()
     
     lazy var linesMesh: LineMesh = {
-        LineMesh(points: [], material: lineMaterial)
+        let mesh = LineMesh(points: fakeLines, material: lineMaterial)
+        mesh.label = "Lines"
+        return mesh
     }()
     
     var pointGeometry = PointGeometry()
@@ -385,8 +490,8 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     lazy var scene: Object = {
         let scene = Object()
         scene.add(videoMesh)
-        scene.add(pointsMesh)
-        scene.add(linesMesh)
+        scene.add(pointsContainer)
+        scene.add(linesContainer)
         scene.add(spriteMesh)
         return scene
     }()
@@ -406,6 +511,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     lazy var cameraController: PerspectiveCameraController = {
         let cc = PerspectiveCameraController(camera: camera, view: mtkView)
         cc.zoomScalar = 100.0
+        cc.mouseDeltaSensitivity = 50.0
         cc.translationScalar = 1.0
         return cc
     }()
@@ -414,17 +520,19 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         Satin.Renderer(context: context, scene: scene, camera: camera)
     }()
     
-    lazy var startTime: Float = {
-        Float(CFAbsoluteTimeGetCurrent())
+    lazy var startTime: CFTimeInterval = {
+        CFAbsoluteTimeGetCurrent()
     }()
     
-    lazy var lastTime: Float = {
-        Float(CFAbsoluteTimeGetCurrent())
+    lazy var lastTime: CFTimeInterval = {
+        CFAbsoluteTimeGetCurrent()
     }()
     
-    var deltaTime: Float {
-        getTime() - lastTime
-    }
+    lazy var currentTime: CFTimeInterval = {
+        CFAbsoluteTimeGetCurrent()
+    }()
+    
+    var deltaTime: CFTimeInterval =  0.0
     
     override func setupMtkView(_ metalKitView: MTKView) {
         metalKitView.sampleCount = 1
@@ -440,7 +548,39 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         cleanup()
     }
     
+    func setupData()
+    {
+        let decoder = JSONDecoder()
+        var data: Data
+        do{
+            data = try Data(contentsOf: dataURL.appendingPathComponent("Elements.json"))
+        }
+        catch {
+            print("Failed to load data file")
+            return
+        }
+        
+        do {
+            let bodyComposition = try decoder.decode(Elements.self, from: data)
+            let colorParams = ParameterGroup("Colors")
+            let massParams = ParameterGroup("Masses")
+            self.bodyComposition = bodyComposition
+            for element in bodyComposition.elements {
+                colorParams.append(Float4Parameter(element.name.titleCase, [1.0, 1.0, 1.0, 1.0], .colorpicker))
+                massParams.append(FloatParameter(element.name.titleCase + " Mass", element.mass/100.0, .inputfield))
+            }
+            self.colorParams = colorParams
+            self.massesParams = massParams
+            
+            self.colorUniforms = UniformBuffer(context: context, parameters: colorParams)
+            self.massUniforms = UniformBuffer(context: context, parameters: massParams)
+        } catch {
+            print("Failed to decode JSON")
+        }
+    }
+    
     override func setup() {
+        setupData()
         setupCamera()
         setupMetalCompiler()
         setupLibrary()
@@ -453,11 +593,33 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         stopCamera()
     }
     
-    func getTime() -> Float {
-        return Float(CFAbsoluteTimeGetCurrent()) - startTime
+    func getTime() -> CFTimeInterval {
+        return CFAbsoluteTimeGetCurrent() - startTime
+    }
+    
+    func updateTime() {
+        currentTime = getTime()
+        deltaTime = currentTime - lastTime
+        lastTime = currentTime
     }
 
+    func updateFullscreen()
+    {
+        if let window = self.mtkView.window {
+            if fullscreen.value, !window.styleMask.contains(.fullScreen) {
+                window.toggleFullScreen(nil)
+                print("toggled on fullscreen")
+            }
+            else if !fullscreen.value, window.styleMask.contains(.fullScreen) {
+                window.toggleFullScreen(nil)
+                print("toggled off fullscreen")
+            }
+        }
+    }
+    
     override func update() {
+        updateFullscreen()
+        updateTime()
         cameraController.update()
         updateBufferComputeUniforms()
         updateInspector()
@@ -468,7 +630,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     }
     
     override func draw(_ view: MTKView, _ commandBuffer: MTLCommandBuffer) {
-        if updateParticles.value, spriteMesh.visible {
+        if updateParticles.value, spriteMesh.visible, linesMesh.pointsBuffer != nil {
             computeSystem.update(commandBuffer)
         }
         guard let renderPassDescriptor = view.currentRenderPassDescriptor else { return }
@@ -489,6 +651,12 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     override func keyDown(with event: NSEvent) {
         if event.characters == "e" {
             openEditor()
+        }
+        else if event.characters == "i" {
+            toggleInspector()
+        }
+        else if event.characters == "f" {
+            fullscreen.value.toggle()
         }
     }
 }

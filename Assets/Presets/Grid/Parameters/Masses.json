@@ -1,0 +1,114 @@
+{
+  "params" : [
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Oxygen Mass",
+        "value" : 0.64999997615814209,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Carbon Mass",
+        "value" : 0.18500000238418579,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Hydrogen Mass",
+        "value" : 0.094999998807907104,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Nitrogen Mass",
+        "value" : 0.032000001519918442,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Calcium Mass",
+        "value" : 0.014999999664723873,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Phosphorus Mass",
+        "value" : 0.0099999997764825821,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Potassium Mass",
+        "value" : 0.0040000001899898052,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Sulfur Mass",
+        "value" : 0.0030000000260770321,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Sodium Mass",
+        "value" : 0.0020000000949949026,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Chlorine Mass",
+        "value" : 0.0020000000949949026,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Magnesium Mass",
+        "value" : 0.0010000000474974513,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    }
+  ]
+}

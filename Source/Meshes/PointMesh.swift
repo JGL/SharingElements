@@ -10,7 +10,7 @@ import MetalKit
 import Satin
 
 class PointMesh: DataMesh {
-    var verticesBuffer: MTLBuffer?
+    var pointsBuffer: MTLBuffer?
     var points: [simd_float3] {
         didSet {
             updateData = true
@@ -26,7 +26,7 @@ class PointMesh: DataMesh {
         super.init(geometry: PointGeometry(), material: material)
         self.cullMode = .none
         self.preDraw = { [unowned self] renderEncoder in
-            renderEncoder.setVertexBuffer(self.verticesBuffer, offset: 0, index: VertexBufferIndex.Custom0.rawValue)
+            renderEncoder.setVertexBuffer(self.pointsBuffer, offset: 0, index: VertexBufferIndex.Custom0.rawValue)
         }
     }
     
@@ -35,6 +35,6 @@ class PointMesh: DataMesh {
         guard let context = self.context else { return }
         instanceCount = points.count
         guard instanceCount > 0 else { return }
-        verticesBuffer = context.device.makeBuffer(bytes: &points, length: MemoryLayout<simd_float3>.stride * points.count)
+        pointsBuffer = context.device.makeBuffer(bytes: &points, length: MemoryLayout<simd_float3>.stride * points.count)
     }
 }

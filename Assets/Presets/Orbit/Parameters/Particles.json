@@ -14,7 +14,7 @@
       "type" : "float",
       "base" : {
         "label" : "Time",
-        "value" : 99.231796264648438,
+        "value" : 229.84440612792969,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -44,7 +44,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl Scale",
-        "value" : 0.004999999888241291,
+        "value" : 0.0024999999441206455,
         "min" : 0,
         "controlType" : "slider",
         "max" : 0.05000000074505806
@@ -54,7 +54,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl Speed",
-        "value" : 0.045551523566246033,
+        "value" : 0.05000000074505806,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -64,7 +64,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl",
-        "value" : 0.075000002980232239,
+        "value" : 0.25,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -84,7 +84,7 @@
       "type" : "float",
       "base" : {
         "label" : "Body",
-        "value" : 0.20684041082859039,
+        "value" : 0,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -104,7 +104,7 @@
       "type" : "float",
       "base" : {
         "label" : "Spherical",
-        "value" : 0,
+        "value" : 0.5,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -114,7 +114,7 @@
       "type" : "float",
       "base" : {
         "label" : "Radius",
-        "value" : 259.7393798828125,
+        "value" : 250,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1000
@@ -134,7 +134,7 @@
       "type" : "float",
       "base" : {
         "label" : "Delta Time",
-        "value" : 0.054867982864379883,
+        "value" : 0.03110504150390625,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -154,7 +154,7 @@
       "type" : "int",
       "base" : {
         "label" : "Lines",
-        "value" : 21,
+        "value" : 15,
         "min" : 0,
         "controlType" : "none",
         "max" : 100

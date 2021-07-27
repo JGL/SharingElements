@@ -22,7 +22,7 @@ class DataMesh: Mesh {
     }
     
     override func update() {
-        if updateData, isVisible() {
+        if updateData {
             _setup()
             updateData = false
         }

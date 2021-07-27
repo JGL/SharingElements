@@ -1,0 +1,213 @@
+{
+  "params" : [
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Oxygen",
+        "w" : 1,
+        "x" : 0,
+        "maxY" : 1,
+        "y" : 0.66270703077316284,
+        "minY" : 0,
+        "z" : 0.94407570362091064,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Carbon",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 0,
+        "minY" : 0,
+        "z" : 0.77667254209518433,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Hydrogen",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 0.16896530985832214,
+        "minY" : 0,
+        "z" : 0,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Nitrogen",
+        "w" : 1,
+        "x" : 0.55634254217147827,
+        "maxY" : 1,
+        "y" : 0.97934550046920776,
+        "minY" : 0,
+        "z" : 0,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Calcium",
+        "w" : 1,
+        "x" : 0,
+        "maxY" : 1,
+        "y" : 0.97680455446243286,
+        "minY" : 0,
+        "z" : 0,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Phosphorus",
+        "w" : 1,
+        "x" : 0,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 0,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Potassium",
+        "w" : 1,
+        "x" : 0,
+        "maxY" : 1,
+        "y" : 0.58980089426040649,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Sulfur",
+        "w" : 1,
+        "x" : 0.016804177314043045,
+        "maxY" : 1,
+        "y" : 0.19835099577903748,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Sodium",
+        "w" : 1,
+        "x" : 0.5818830132484436,
+        "maxY" : 1,
+        "y" : 0.21569153666496277,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Chlorine",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 0.25279238820075989,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Magnesium",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 0.18573886156082153,
+        "minY" : 0,
+        "z" : 0.5733950138092041,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    }
+  ]
+}

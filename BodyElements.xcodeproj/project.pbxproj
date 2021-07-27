@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E13B543426AF711000DDE69B /* Element.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B543326AF711000DDE69B /* Element.swift */; };
+		E13B543626AF715400DDE69B /* Elements.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B543526AF715400DDE69B /* Elements.swift */; };
 		E13B5587230F3D44009E143D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B5586230F3D44009E143D /* AppDelegate.swift */; };
 		E13B5593230F3D44009E143D /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B555A230F3D42009E143D /* Renderer.swift */; };
 		E14B673D25A783DE00A9D59B /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = E14B673C25A783DE00A9D59B /* Assets */; };
@@ -35,6 +37,8 @@
 		7A0BAB358CFD708D1157A453 /* Pods-Example iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example iOS.debug.xcconfig"; path = "Target Support Files/Pods-Example iOS/Pods-Example iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		A7FDC089AAC3039EAB854C91 /* Pods_BodyElements_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BodyElements_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC7DE9A9F5DA25ED8E40C20 /* Pods-Example macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Example macOS.debug.xcconfig"; path = "Target Support Files/Pods-Example macOS/Pods-Example macOS.debug.xcconfig"; sourceTree = "<group>"; };
+		E13B543326AF711000DDE69B /* Element.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Element.swift; sourceTree = "<group>"; };
+		E13B543526AF715400DDE69B /* Elements.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Elements.swift; sourceTree = "<group>"; };
 		E13B555A230F3D42009E143D /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		E13B5584230F3D44009E143D /* BodyElements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BodyElements.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E13B5586230F3D44009E143D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -154,6 +158,8 @@
 			isa = PBXGroup;
 			children = (
 				E1B13EA326A2504400F1AE5A /* Paths.swift */,
+				E13B543326AF711000DDE69B /* Element.swift */,
+				E13B543526AF715400DDE69B /* Elements.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -295,6 +301,7 @@
 				E1FEC31A26A49356003E4C49 /* LineMesh.swift in Sources */,
 				E14B675425A785C900A9D59B /* Renderer+Observers.swift in Sources */,
 				E1FEC31C26A49377003E4C49 /* PointMaterial.swift in Sources */,
+				E13B543626AF715400DDE69B /* Elements.swift in Sources */,
 				E1FEC31526A49275003E4C49 /* PointMesh.swift in Sources */,
 				E1FEC31426A49275003E4C49 /* LineMaterial.swift in Sources */,
 				E1B13EBA26A259EC00F1AE5A /* Renderer+Camera.swift in Sources */,
@@ -303,6 +310,7 @@
 				E1FEC31626A49275003E4C49 /* DataMesh.swift in Sources */,
 				E13B5587230F3D44009E143D /* AppDelegate.swift in Sources */,
 				E14B675125A785C900A9D59B /* Renderer+Inspector.swift in Sources */,
+				E13B543426AF711000DDE69B /* Element.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

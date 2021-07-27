@@ -21,7 +21,16 @@ extension Renderer {
     func setupLibrary() {
         print("Compiling Library")
         do {
-            var librarySource = try metalFileCompiler.parse(pipelinesURL.appendingPathComponent("Compute/Shaders.metal"))
+            var librarySource = ""
+            if let colorParams = self.colorParams {
+                librarySource += colorParams.structString
+            }
+            if let massesParams = self.massesParams {
+                librarySource += massesParams.structString
+            }
+            
+            librarySource += try metalFileCompiler.parse(pipelinesURL.appendingPathComponent("Compute/Shaders.metal"))
+            
             injectConstants(source: &librarySource)
             let library = try context.device.makeLibrary(source: librarySource, options: .none)
             
@@ -29,12 +38,13 @@ extension Renderer {
                 computeSystem.setParams([params])
             }
             
+            if let computeParams = self.computeParams {
+                computeParams.save(parametersURL.appendingPathComponent("Particles.json"))
+            }
             
             if let params = parseParameters(source: librarySource, key: "ComputeUniforms") {
-                params.label = "Compute"
-                if let computeParams = self.computeParams {
-                    params.setFrom(computeParams, setValues: true, setOptions: false)
-                }
+                params.label = "Compute"                
+                params.load(parametersURL.appendingPathComponent("Particles.json"))
                 computeUniforms = UniformBuffer(context: context, parameters: params)
                 computeParams = params
             }
@@ -65,8 +75,18 @@ extension Renderer {
     func updateBufferComputeUniforms() {
         if let uniforms = self.computeUniforms {
             uniforms.parameters.set("Count", particleCount.value)
-            uniforms.parameters.set("Time", getTime())
-            uniforms.parameters.set("Delta Time", deltaTime)
+            uniforms.parameters.set("Time", Float(currentTime))
+            uniforms.parameters.set("Delta Time", Float(deltaTime))
+            uniforms.parameters.set("Points", pointsMesh.points.count)
+            uniforms.parameters.set("Lines", linesMesh.points.count/2)
+            uniforms.update()
+        }
+        
+        if let uniforms = self.colorUniforms {
+            uniforms.update()
+        }
+        
+        if let uniforms = self.massUniforms {
             uniforms.update()
         }
     }
