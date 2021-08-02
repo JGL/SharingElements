@@ -7,16 +7,29 @@
         "minZ" : 0,
         "label" : "Background",
         "w" : 1,
-        "x" : 0,
+        "x" : 0.96070021390914917,
         "maxY" : 1,
-        "y" : 0,
+        "y" : 0.96083825826644897,
         "minY" : 0,
-        "z" : 0,
+        "z" : 0.96067017316818237,
         "maxX" : 1,
         "controlType" : "colorpicker",
         "minX" : 0,
         "maxW" : 1,
         "minW" : 0
+      }
+    },
+    {
+      "type" : "string",
+      "base" : {
+        "label" : "Blending",
+        "value" : "Alpha",
+        "options" : [
+          "Additive",
+          "Alpha",
+          "Subtract"
+        ],
+        "controlType" : "dropdown"
       }
     },
     {

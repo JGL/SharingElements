@@ -14,7 +14,7 @@
       "type" : "float",
       "base" : {
         "label" : "Time",
-        "value" : 158.04463195800781,
+        "value" : 723.8729248046875,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -31,20 +31,23 @@
       }
     },
     {
-      "type" : "float",
+      "type" : "float2",
       "base" : {
+        "maxX" : 1,
+        "controlType" : "none",
+        "x" : 2705.596923828125,
+        "y" : 828.42706298828125,
+        "maxY" : 1,
+        "minX" : 0,
         "label" : "Grid Size",
-        "value" : 1000,
-        "min" : 0,
-        "controlType" : "slider",
-        "max" : 1000
+        "minY" : 0
       }
     },
     {
       "type" : "float",
       "base" : {
         "label" : "Curl Scale",
-        "value" : 0.004999999888241291,
+        "value" : 0.029611539095640182,
         "min" : 0,
         "controlType" : "slider",
         "max" : 0.05000000074505806
@@ -54,7 +57,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl Speed",
-        "value" : 0.045551523566246033,
+        "value" : 0.5,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -93,8 +96,8 @@
     {
       "type" : "float",
       "base" : {
-        "label" : "Wind",
-        "value" : 0.42747050523757935,
+        "label" : "Stream",
+        "value" : 0,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -114,7 +117,7 @@
       "type" : "float",
       "base" : {
         "label" : "Radius",
-        "value" : 259.7393798828125,
+        "value" : 0,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1000
@@ -124,7 +127,7 @@
       "type" : "float",
       "base" : {
         "label" : "Damping",
-        "value" : 0.05000000074505806,
+        "value" : 0.5,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -134,7 +137,7 @@
       "type" : "float",
       "base" : {
         "label" : "Delta Time",
-        "value" : 0.0420379638671875,
+        "value" : 0.01612699031829834,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -154,7 +157,7 @@
       "type" : "int",
       "base" : {
         "label" : "Lines",
-        "value" : 15,
+        "value" : 21,
         "min" : 0,
         "controlType" : "none",
         "max" : 100

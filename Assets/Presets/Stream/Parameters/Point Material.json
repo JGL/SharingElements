@@ -6,12 +6,12 @@
         "maxZ" : 1,
         "minZ" : 0,
         "label" : "Color",
-        "w" : 0.75,
-        "x" : 0.9999045729637146,
+        "w" : 1,
+        "x" : 0,
         "maxY" : 1,
         "y" : 1,
         "minY" : 0,
-        "z" : 0.99988085031509399,
+        "z" : 0,
         "maxX" : 1,
         "controlType" : "colorpicker",
         "minX" : 0,
@@ -22,20 +22,20 @@
     {
       "type" : "float",
       "base" : {
-        "label" : "Sigma",
-        "value" : 0.32499998807907104,
+        "label" : "Point Size",
+        "value" : 16,
         "min" : 0,
         "controlType" : "slider",
-        "max" : 1
+        "max" : 16
       }
     },
     {
       "type" : "float",
       "base" : {
-        "label" : "Power",
-        "value" : 0.32499998807907104,
+        "label" : "Aspect",
+        "value" : 0,
         "min" : 0,
-        "controlType" : "slider",
+        "controlType" : "none",
         "max" : 1
       }
     }

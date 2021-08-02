@@ -30,22 +30,24 @@ extension Renderer {
         observers.append(bgColor.observe(\.z, changeHandler: bgColorCb))
         observers.append(bgColor.observe(\.w, changeHandler: bgColorCb))
         
-        observers.append(videoInput.observe(\StringParameter.value, options: .new) { [unowned self] _, _ in
-            self.captureSession.beginConfiguration()
-            self.captureSession.sessionPreset = .vga640x480
-            guard let captureInput = self.captureInput else { return }
-            self.captureSession.removeInput(captureInput)
-            guard let inputDevice = self.getInputDevice(self.videoInput.value) else { return }
-            do {
-                self.captureInput = try AVCaptureDeviceInput(device: inputDevice)
+        observers.append(videoInput.observe(\StringParameter.value, options: [.new, .old]) { [unowned self] _, change in
+            if let newValue = change.newValue, let oldValue = change.oldValue, newValue != oldValue {
+                self.captureSession.beginConfiguration()
+                self.captureSession.sessionPreset = .vga640x480
+                guard let captureInput = self.captureInput else { return }
+                self.captureSession.removeInput(captureInput)
+                guard let inputDevice = self.getInputDevice(self.videoInput.value) else { return }
+                do {
+                    self.captureInput = try AVCaptureDeviceInput(device: inputDevice)
+                }
+                catch {
+                    print("AVCaptureDeviceInput Failed")
+                    return
+                }
+                guard self.captureSession.canAddInput(self.captureInput!) else { return }
+                self.captureSession.addInput(self.captureInput!)
+                self.captureSession.commitConfiguration()
             }
-            catch {
-                print("AVCaptureDeviceInput Failed")
-                return
-            }
-            guard self.captureSession.canAddInput(self.captureInput!) else { return }
-            self.captureSession.addInput(self.captureInput!)
-            self.captureSession.commitConfiguration()
         })
     }
 }

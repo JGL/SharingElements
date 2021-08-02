@@ -21,7 +21,7 @@ extension Renderer {
     
     public func save(_ url: URL) {
         let saveParametersURL = url.appendingPathComponent("Parameters")
-        removeFile(saveParametersURL)
+        removeFile(url)
         if createDirectory(url), createDirectory(saveParametersURL) {
             saveParameters(saveParametersURL)
         }
@@ -45,6 +45,16 @@ extension Renderer {
                 p.load(url.appendingPathComponent(key + ".json"), append: false)
             }
         }
+    }
+    
+    public func savePreset(_ name: String) {
+        let url = presetsURL.appendingPathComponent(name)
+        removeFile(url)
+        save(url)
+    }
+    
+    public func loadPreset(_ name: String) {
+        load(presetsURL.appendingPathComponent(name))
     }
 }
 

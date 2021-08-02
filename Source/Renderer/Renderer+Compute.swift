@@ -44,7 +44,7 @@ extension Renderer {
             
             if let params = parseParameters(source: librarySource, key: "ComputeUniforms") {
                 params.label = "Compute"                
-                params.load(parametersURL.appendingPathComponent("Particles.json"))
+                params.load(parametersURL.appendingPathComponent("Particles.json"), append: false)
                 computeUniforms = UniformBuffer(context: context, parameters: params)
                 computeParams = params
             }
@@ -74,6 +74,10 @@ extension Renderer {
     
     func updateBufferComputeUniforms() {
         if let uniforms = self.computeUniforms {
+            let theta = degToRad(camera.fov / 2.0)
+            let gridHeight = 2.0 * abs(camera.position.z) * tan(theta)
+            let gridWidth = gridHeight * camera.aspect
+            uniforms.parameters.set("Grid Size", simd_make_float2(gridWidth, gridHeight))
             uniforms.parameters.set("Count", particleCount.value)
             uniforms.parameters.set("Time", Float(currentTime))
             uniforms.parameters.set("Delta Time", Float(deltaTime))

@@ -14,7 +14,7 @@
       "type" : "float",
       "base" : {
         "label" : "Time",
-        "value" : 560.79241943359375,
+        "value" : 1295.759033203125,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -47,7 +47,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl Scale",
-        "value" : 0.029611539095640182,
+        "value" : 0.004999999888241291,
         "min" : 0,
         "controlType" : "slider",
         "max" : 0.05000000074505806
@@ -57,7 +57,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl Speed",
-        "value" : 0.5,
+        "value" : 0.02500000037252903,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -67,7 +67,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl",
-        "value" : 0.15752720832824707,
+        "value" : 0.11792523413896561,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -87,26 +87,6 @@
       "type" : "float",
       "base" : {
         "label" : "Body",
-        "value" : 0,
-        "min" : 0,
-        "controlType" : "slider",
-        "max" : 1
-      }
-    },
-    {
-      "type" : "float",
-      "base" : {
-        "label" : "Stream",
-        "value" : 0,
-        "min" : 0,
-        "controlType" : "slider",
-        "max" : 1
-      }
-    },
-    {
-      "type" : "float",
-      "base" : {
-        "label" : "Spherical",
         "value" : 1,
         "min" : 0,
         "controlType" : "slider",
@@ -116,8 +96,28 @@
     {
       "type" : "float",
       "base" : {
+        "label" : "Stream",
+        "value" : 0.25,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Spherical",
+        "value" : 0,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
         "label" : "Radius",
-        "value" : 500,
+        "value" : 0,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1000
@@ -137,7 +137,7 @@
       "type" : "float",
       "base" : {
         "label" : "Delta Time",
-        "value" : 0.015591979026794434,
+        "value" : 0.028583049774169922,
         "min" : 0,
         "controlType" : "none",
         "max" : 1

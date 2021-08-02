@@ -16,9 +16,11 @@ import Satin
 import Youi
 
 class SpriteMaterial: LiveMaterial {}
+class PostMaterial: LiveMaterial {}
 
 class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSampleBufferDelegate {
     // MARK: - Elements
+
     var bodyComposition: Elements?
     
     // MARK: - Particles
@@ -54,11 +56,14 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
                 computeEncoder.setBuffer(uniforms.buffer, offset: uniforms.offset, index: offset)
                 offset += 1
             }
-            
-            
         }
         return compute
     }()
+    
+    var orbitParams: ParameterGroup?
+    var streamParams: ParameterGroup?
+    var bodyParams: ParameterGroup?
+    var gridParams: ParameterGroup?
     
     var computeParams: ParameterGroup?
     var computeUniforms: UniformBuffer?
@@ -132,6 +137,10 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         return getDocumentsAssetsDirectoryUrl("Parameters")
     }
     
+    var presetsURL: URL {
+        return getDocumentsAssetsDirectoryUrl("Presets")
+    }
+    
     // MARK: - UI
     
     var paramKeys: [String] {
@@ -143,7 +152,8 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
             "Point Material",
             "Line Material",
             "Sprite Material",
-            "Particles"
+            "Particles",
+            "Post Processing"
         ]
     }
     
@@ -156,7 +166,8 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
             "Point Material": pointMaterial.parameters,
             "Line Material": lineMaterial.parameters,
             "Sprite Material": spriteMaterial.parameters,
-            "Particles": computeParams
+            "Particles": computeParams,
+            "Post Processing" : postMaterial.parameters
         ]
     }
     
@@ -172,62 +183,74 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     var fakePose = BoolParameter("Fake Pose", false, .toggle)
     
     var fakeLines: [simd_float3] = [
-        simd_make_float3(-261.898254, 173.549255, 0.000000),
-        simd_make_float3(-151.697144, 121.546570, 0.000000),
-        simd_make_float3(-151.697144, 121.546570, 0.000000),
-        simd_make_float3(-54.100342, 211.511841, 0.000000),
-        simd_make_float3(-54.100342, 211.511841, 0.000000),
-        simd_make_float3(22.713623, 207.329163, 0.000000),
-        simd_make_float3(-54.100342, 211.511841, 0.000000),
-        simd_make_float3(-29.878479, -27.130432, 0.000000),
-        simd_make_float3(-29.878479, -27.130432, 0.000000),
-        simd_make_float3(-35.814880, -198.462769, 0.000000),
-        simd_make_float3(-35.814880, -198.462769, 0.000000),
-        simd_make_float3(-36.862549, -347.708466, 0.000000),
-        simd_make_float3(-29.878479, -27.130432, 0.000000),
-        simd_make_float3(17.489075, -27.816345, 0.000000),
-        simd_make_float3(22.713623, 207.329163, 0.000000),
-        simd_make_float3(22.052124, 311.769531, 0.000000),
-        simd_make_float3(22.713623, 207.329163, 0.000000),
-        simd_make_float3(99.527588, 203.146423, 0.000000),
-        simd_make_float3(99.527588, 203.146423, 0.000000),
-        simd_make_float3(171.808228, 94.605774, 0.000000),
-        simd_make_float3(171.808228, 94.605774, 0.000000),
-        simd_make_float3(279.950195, 116.137695, 0.000000),
-        simd_make_float3(99.527588, 203.146423, 0.000000),
-        simd_make_float3(64.856567, -28.502197, 0.000000),
-        simd_make_float3(64.856567, -28.502197, 0.000000),
-        simd_make_float3(88.286133, -194.944397, 0.000000),
-        simd_make_float3(88.286133, -194.944397, 0.000000),
-        simd_make_float3(93.564209, -352.168213, 0.000000),
-        simd_make_float3(64.856567, -28.502197, 0.000000),
-        simd_make_float3(17.489075, -27.816345, 0.000000)
+        simd_make_float3(-191.417542, 43.109070,  0.000000),
+        simd_make_float3(-90.650269,  40.662903,  0.000000),
+        simd_make_float3(-90.650269,  40.662903,  0.000000),
+        simd_make_float3(18.745117,  34.053711,  0.000000),
+        simd_make_float3(18.745117,  34.053711,  0.000000),
+        simd_make_float3(77.517578,  33.638794,  0.000000),
+        simd_make_float3(18.745117,  34.053711,  0.000000),
+        simd_make_float3(46.117737, -163.745056, 0.000000),
+        simd_make_float3(46.117737, -163.745056, 0.000000),
+        simd_make_float3(-57.649292, -278.170410, 0.000000),
+        simd_make_float3(-57.649292, -278.170410, 0.000000),
+        simd_make_float3(-167.979126,-347.207123, 0.000000),
+        simd_make_float3(46.117737, -163.745056, 0.000000),
+        simd_make_float3(75.280396, -164.072021, 0.000000),
+        simd_make_float3(77.517578,  33.638794,  0.000000),
+        simd_make_float3(99.477173,  86.022461,  0.000000),
+        simd_make_float3(77.517578,  33.638794,  0.000000),
+        simd_make_float3(136.290039, 33.223816,  0.000000),
+        simd_make_float3(136.290039, 33.223816,  0.000000),
+        simd_make_float3(247.299805, 76.679321,  0.000000),
+        simd_make_float3(247.299805, 76.679321,  0.000000),
+        simd_make_float3(344.167847, 103.910950, 0.000000),
+        simd_make_float3(136.290039, 33.223816,  0.000000),
+        simd_make_float3(104.442993,-164.398956, 0.000000),
+        simd_make_float3(104.442993,-164.398956, 0.000000),
+        simd_make_float3(250.483887,-239.269867, 0.000000),
+        simd_make_float3(250.483887,-239.269867, 0.000000),
+        simd_make_float3(212.481323,-401.193481, 0.000000),
+        simd_make_float3(104.442993,-164.398956, 0.000000),
+        simd_make_float3(75.280396, -164.072021, 0.000000),
+        simd_make_float3(77.517578,  33.638794,  0.000000),
+        simd_make_float3(75.280396, -164.072021, 0.000000),
+        simd_make_float3(18.745117,  34.053711,  0.000000),
+        simd_make_float3(104.442993,-164.398956, 0.000000),
+        simd_make_float3(136.290039, 33.223816,  0.000000),
+        simd_make_float3(46.117737, -163.745056, 0.000000),
+        simd_make_float3(128.328278,-16.181877,  0.000000),
+        simd_make_float3(25.588272, -15.395981,  0.000000),
+        simd_make_float3(120.366516,-65.587570,  0.000000),
+        simd_make_float3(32.431427, -64.845673,  0.000000),
+        simd_make_float3(112.404755,-114.993256, 0.000000),
+        simd_make_float3(39.274582, -114.295364, 0.000000)
     ]
     
     var fakePoints: [simd_float3] = [
-        simd_make_float3(68.444580, 311.264648, 0.000000),
-        simd_make_float3(-35.814880, -198.462769, 0.000000),
-        simd_make_float3(64.856567, -28.502197, 0.000000),
-        simd_make_float3(99.527588, 203.146423, 0.000000),
-        simd_make_float3(22.052124, 311.769531, 0.000000),
-        simd_make_float3(-151.697144, 121.546570, 0.000000),
-        simd_make_float3(-29.878479, -27.130432, 0.000000),
-        simd_make_float3(-54.100342, 211.511841, 0.000000),
-        simd_make_float3(93.564209, -352.168213, 0.000000),
-        simd_make_float3(-10.444885, 316.963684, 0.000000),
-        simd_make_float3(171.808228, 94.605774, 0.000000),
-        simd_make_float3(17.489075, -27.816345, 0.000000),
-        simd_make_float3(-261.898254, 173.549255, 0.000000),
-        simd_make_float3(-36.862549, -347.708466, 0.000000),
-        simd_make_float3(11.540833, 331.097412, 0.000000),
-        simd_make_float3(279.950195, 116.137695, 0.000000),
-        simd_make_float3(40.453857, 331.823853, 0.000000),
-        simd_make_float3(22.713623, 207.329163, 0.000000),
-        simd_make_float3(88.286133, -194.944397, 0.000000)
+        simd_make_float3(77.517578, 33.638794, 0.000000),
+        simd_make_float3(136.290039, 33.223816, 0.000000),
+        simd_make_float3(-191.417542, 43.109070, 0.000000),
+        simd_make_float3(18.745117, 34.053711, 0.000000),
+        simd_make_float3(46.117737, -163.745056, 0.000000),
+        simd_make_float3(111.938110, 87.548462, 0.000000),
+        simd_make_float3(-90.650269, 40.662903, 0.000000),
+        simd_make_float3(-167.979126, -347.207123, 0.000000),
+        simd_make_float3(-57.649292, -278.170410, 0.000000),
+        simd_make_float3(344.167847, 103.910950, 0.000000),
+        simd_make_float3(247.299805, 76.679321, 0.000000),
+        simd_make_float3(99.477173, 86.022461, 0.000000),
+        simd_make_float3(89.326782, 103.510254, 0.000000),
+        simd_make_float3(104.442993, -164.398956, 0.000000),
+        simd_make_float3(212.481323, -401.193481, 0.000000),
+        simd_make_float3(49.777588, 94.136780, 0.000000),
+        simd_make_float3(110.225952, 102.882874, 0.000000),
+        simd_make_float3(75.280396, -164.072021, 0.000000),
+        simd_make_float3(250.483887, -239.269867, 0.000000)
     ]
 
     lazy var updateParticles: BoolParameter = {
-        return BoolParameter("Update Particles", true, .toggle)
+        BoolParameter("Update Particles", true, .toggle)
     }()
     
     lazy var resetParticles: BoolParameter = {
@@ -238,7 +261,6 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         }
         return param
     }()
-    
     
     lazy var showVideo: BoolParameter = {
         let param = BoolParameter("Show Video", true, .toggle) { value in
@@ -272,9 +294,57 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         return param
     }()
     
+    var postProcess = BoolParameter("Post Process", false, .toggle)
+    
+    lazy var blendModes: StringParameter = {
+        var param = StringParameter("Blending", "Subtract", ["Additive", "Alpha", "Subtract"], .dropdown) { [unowned self] value in
+            switch value {
+            case "Additive":
+                spriteMaterial.blending = .additive
+            case "Alpha":
+                spriteMaterial.blending = .alpha
+            case "Subtract":
+                spriteMaterial.blending = .subtract
+            default:
+                break
+            }
+        }
+        return param
+    }()
+    
+    lazy var state: StringParameter = {
+        var param = StringParameter("State", "Orbit", ["Orbit", "Grid", "Body", "Stream"], .dropdown) { [unowned self] value in
+            if let computeParams = self.computeParams {
+                switch value {
+                case "Orbit":
+                    if let orbitParams = self.orbitParams {
+                        computeParams.setFrom(orbitParams, setValues: true)
+                    }
+                case "Grid":
+                    if let gridParams = self.gridParams {
+                        computeParams.setFrom(gridParams, setValues: true)
+                    }
+                case "Body":
+                    if let bodyParams = self.bodyParams {
+                        computeParams.setFrom(bodyParams, setValues: true)
+                    }
+                case "Stream":
+                    if let streamParams = self.streamParams {
+                        computeParams.setFrom(streamParams, setValues: true)
+                    }
+                default:
+                    break
+                }
+            }
+        }
+        return param
+    }()
+    
     lazy var appParams: ParameterGroup = {
         let params = ParameterGroup("Controls")
         params.append(bgColor)
+        params.append(postProcess)
+        params.append(blendModes)
         params.append(fullscreen)
         params.append(videoInput)
         params.append(showVideo)
@@ -287,6 +357,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         params.append(resetParticles)
         params.append(updateParticles)
         params.append(showParticles)
+        params.append(state)
         return params
     }()
     
@@ -314,8 +385,15 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         return mat
     }()
     
+    lazy var spriteContainer: Object = {
+        let container = Object()
+        container.label = "Sprite Container"
+        container.add(spriteMesh)
+        return container
+    }()
+    
     lazy var pointsContainer: Object = {
-       let container = Object()
+        let container = Object()
         container.label = "Points Container"
         container.add(pointsMesh)
         return container
@@ -328,7 +406,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     }()
     
     lazy var linesContainer: Object = {
-       let container = Object()
+        let container = Object()
         container.label = "Lines Container"
         container.add(linesMesh)
         return container
@@ -492,7 +570,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         scene.add(videoMesh)
         scene.add(pointsContainer)
         scene.add(linesContainer)
-        scene.add(spriteMesh)
+        scene.add(spriteContainer)
         return scene
     }()
     
@@ -532,10 +610,33 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         CFAbsoluteTimeGetCurrent()
     }()
     
-    var deltaTime: CFTimeInterval =  0.0
+    var deltaTime: CFTimeInterval = 0.0
+    
+    var renderTextureSize = simd_int2(repeating: 0)
+    var renderTexture: MTLTexture?
+    lazy var postMaterial: PostMaterial = {
+        let mat = PostMaterial(pipelinesURL: pipelinesURL)
+        mat.delegate = self
+        mat.blending = .disabled
+        return mat
+    }()
+    
+    lazy var postProcessor: PostProcessor = {
+        let ppc = Context(device, sampleCount, colorPixelFormat, .invalid, .invalid)
+        let pp = PostProcessor(context: ppc, material: postMaterial)
+        pp.renderer.colorLoadAction = .clear
+        pp.renderer.colorStoreAction = .store
+        pp.renderer.setClearColor([0, 0, 0, 1])
+        pp.label = "Post Processor"
+        pp.mesh.preDraw = { [unowned self] renderEncoder in
+            renderEncoder.setFragmentTexture(self.renderTexture, index: FragmentTextureIndex.Custom0.rawValue)
+        }
+        return pp
+    }()
     
     override func setupMtkView(_ metalKitView: MTKView) {
         metalKitView.sampleCount = 1
+        metalKitView.colorPixelFormat = .bgra8Unorm
         metalKitView.depthStencilPixelFormat = .depth32Float
         metalKitView.preferredFramesPerSecond = 60
     }
@@ -548,11 +649,10 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         cleanup()
     }
     
-    func setupData()
-    {
+    func setupData() {
         let decoder = JSONDecoder()
         var data: Data
-        do{
+        do {
             data = try Data(contentsOf: dataURL.appendingPathComponent("Elements.json"))
         }
         catch {
@@ -567,14 +667,15 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
             self.bodyComposition = bodyComposition
             for element in bodyComposition.elements {
                 colorParams.append(Float4Parameter(element.name.titleCase, [1.0, 1.0, 1.0, 1.0], .colorpicker))
-                massParams.append(FloatParameter(element.name.titleCase + " Mass", element.mass/100.0, .inputfield))
+                massParams.append(FloatParameter(element.name.titleCase + " Mass", element.mass / 100.0, .inputfield))
             }
             self.colorParams = colorParams
-            self.massesParams = massParams
+            massesParams = massParams
             
-            self.colorUniforms = UniformBuffer(context: context, parameters: colorParams)
-            self.massUniforms = UniformBuffer(context: context, parameters: massParams)
-        } catch {
+            colorUniforms = UniformBuffer(context: context, parameters: colorParams)
+            massUniforms = UniformBuffer(context: context, parameters: massParams)
+        }
+        catch {
             print("Failed to decode JSON")
         }
     }
@@ -585,7 +686,39 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         setupMetalCompiler()
         setupLibrary()
         setupObservers()
+        setupStates()
         load()
+    }
+    
+    func setupStates()
+    {
+        let orbitParams = ParameterGroup("Particles")
+        orbitParams.load(presetsURL
+                            .appendingPathComponent("Orbit")
+                            .appendingPathComponent("Parameters")
+                            .appendingPathComponent("Particles.json"), append: true)
+        self.orbitParams = orbitParams
+        
+        let streamParams = ParameterGroup("Particles")
+        streamParams.load(presetsURL
+                            .appendingPathComponent("Stream")
+                            .appendingPathComponent("Parameters")
+                            .appendingPathComponent("Particles.json"), append: true)
+        self.streamParams = streamParams
+    
+        let bodyParams = ParameterGroup("Particles")
+        bodyParams.load(presetsURL
+                            .appendingPathComponent("Body")
+                            .appendingPathComponent("Parameters")
+                            .appendingPathComponent("Particles.json"), append: true)
+        self.bodyParams = bodyParams
+        
+        let gridParams = ParameterGroup("Particles")
+        gridParams.load(presetsURL
+                            .appendingPathComponent("Grid")
+                            .appendingPathComponent("Parameters")
+                            .appendingPathComponent("Particles.json"), append: true)
+        self.gridParams = gridParams
     }
     
     public func cleanup() {
@@ -603,9 +736,8 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         lastTime = currentTime
     }
 
-    func updateFullscreen()
-    {
-        if let window = self.mtkView.window {
+    func updateFullscreen() {
+        if let window = mtkView.window {
             if fullscreen.value, !window.styleMask.contains(.fullScreen) {
                 window.toggleFullScreen(nil)
                 print("toggled on fullscreen")
@@ -617,12 +749,28 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         }
     }
     
+    func updateRenderTexture()
+    {
+        if renderTextureSize.x != Int(mtkView.drawableSize.width) || renderTextureSize.y != Int(mtkView.drawableSize.height) {
+            renderTexture = createTexture("Render Texture", Int(mtkView.drawableSize.width), Int(mtkView.drawableSize.height), colorPixelFormat, context.device)
+            renderTextureSize = simd_make_int2(Int32(Int(mtkView.drawableSize.width)), Int32(mtkView.drawableSize.height))
+        }
+    }
+    
     override func update() {
         updateFullscreen()
         updateTime()
         cameraController.update()
         updateBufferComputeUniforms()
         updateInspector()
+        updateRenderTexture()
+        
+        videoMaterial.texture = videoTexture
+        
+        postMaterial.set("Time", Float(currentTime))
+        postMaterial.set("Resolution", simd_make_float2(Float(mtkView.drawableSize.width), Float(mtkView.drawableSize.height)))
+        
+        
         
         if let texture = videoTexture, videoMesh.scale.x != Float(texture.width), videoMesh.scale.y != Float(texture.height) {
             videoMesh.scale = simd_make_float3((flipVideo.value ? -1.0 : 1.0) * Float(texture.width), Float(texture.height), 1)
@@ -632,15 +780,27 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     override func draw(_ view: MTKView, _ commandBuffer: MTLCommandBuffer) {
         if updateParticles.value, spriteMesh.visible, linesMesh.pointsBuffer != nil {
             computeSystem.update(commandBuffer)
+            spriteContainer.visible = true
+        }
+        else {
+            spriteContainer.visible = false
         }
         guard let renderPassDescriptor = view.currentRenderPassDescriptor else { return }
-        videoMaterial.texture = videoTexture
-        renderer.draw(renderPassDescriptor: renderPassDescriptor, commandBuffer: commandBuffer)
+        
+        if postProcess.value, let renderTexture = self.renderTexture {
+            renderer.draw(renderPassDescriptor: renderPassDescriptor, commandBuffer: commandBuffer, renderTarget: renderTexture)
+            postProcessor.draw(renderPassDescriptor: renderPassDescriptor, commandBuffer: commandBuffer)
+        }
+        else {
+            renderer.draw(renderPassDescriptor: renderPassDescriptor, commandBuffer: commandBuffer)
+        }
+        
     }
     
     override func resize(_ size: (width: Float, height: Float)) {
         camera.aspect = size.width / size.height
         renderer.resize(size)
+        postProcessor.resize(size)
     }
     
     func updated(material: Material) {
@@ -658,5 +818,21 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         else if event.characters == "f" {
             fullscreen.value.toggle()
         }
+    }
+    
+    func createTexture(_ label: String, _ width: Int, _ height: Int, _ pixelFormat: MTLPixelFormat, _ device: MTLDevice) -> MTLTexture? {
+        guard width > 0, height > 0 else { return nil }
+        let descriptor = MTLTextureDescriptor()
+        descriptor.pixelFormat = pixelFormat
+        descriptor.width = width
+        descriptor.height = height
+        descriptor.sampleCount = 1
+        descriptor.textureType = .type2D
+        descriptor.usage = [.renderTarget, .shaderRead, .shaderWrite]
+        descriptor.storageMode = .private
+        descriptor.resourceOptions = .storageModePrivate
+        guard let texture = device.makeTexture(descriptor: descriptor) else { return nil }
+        texture.label = label
+        return texture
     }
 }
