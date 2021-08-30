@@ -23,6 +23,7 @@ typedef struct {
     float spherical; //slider
     float radius;    //slider,0,1000,500
     float damping;   //slider
+    float dt;        //slider
     float deltaTime;
     int points;
     int lines;
@@ -57,7 +58,7 @@ kernel void resetCompute(uint index [[thread_position_in_grid]],
     const float fid = float(index) / fcount;
     const float time = uniforms.time;
 
-    const float4 elementColors[11] = {
+    const float4 elementColors[12] = {
         colors.oxygen,
         colors.carbon,
         colors.hydrogen,
@@ -68,10 +69,11 @@ kernel void resetCompute(uint index [[thread_position_in_grid]],
         colors.sulfur,
         colors.sodium,
         colors.chlorine,
-        colors.magnesium
+        colors.magnesium,
+        colors.copper
     };
 
-    const float elementMasses[11] = {
+    const float elementMasses[12] = {
         masses.oxygenMass,
         masses.carbonMass,
         masses.hydrogenMass,
@@ -82,14 +84,15 @@ kernel void resetCompute(uint index [[thread_position_in_grid]],
         masses.sulfurMass,
         masses.sodiumMass,
         masses.chlorineMass,
-        masses.magnesiumMass
+        masses.magnesiumMass,
+        masses.copperMass
     };
 
     float sum = 0.0;
     float mass = 0.0;
     int elementIndex = 0;
     float4 color = float4(0.0);
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < 12; i++) {
         float elementMass = elementMasses[i];
         if (sum > fid) {
             break;
@@ -128,7 +131,7 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
 
     const float id = float(index);
     const float time = uniforms.time;
-    const float dt = uniforms.deltaTime * 0.5;
+    const float dt = uniforms.dt;
     const float curlSpeed = uniforms.curlSpeed;
     const float pointSize = uniforms.pointSize;
     const float2 gridSize = uniforms.gridSize;
@@ -137,7 +140,7 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
     const int halfCount = int(sqrt(float(uniforms.count)));
     const float3 home = getHomePosition(index, halfCount, uniforms.gridSize);
 
-    const float4 elementColors[11] = {
+    const float4 elementColors[12] = {
         colors.oxygen,
         colors.carbon,
         colors.hydrogen,
@@ -148,10 +151,11 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
         colors.sulfur,
         colors.sodium,
         colors.chlorine,
-        colors.magnesium
+        colors.magnesium,
+        colors.copper
     };
 
-    const float elementMasses[11] = {
+    const float elementMasses[12] = {
         masses.oxygenMass,
         masses.carbonMass,
         masses.hydrogenMass,
@@ -162,7 +166,8 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
         masses.sulfurMass,
         masses.sodiumMass,
         masses.chlorineMass,
-        masses.magnesiumMass
+        masses.magnesiumMass,
+        masses.copperMass
     };
 
     Particle in = outBuffer[index];
@@ -207,8 +212,8 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
     }
 
     acc += dampingForce(vel, uniforms.damping);
-    vel += acc;
-    pos += vel;
+    vel += acc * dt;
+    pos += vel * dt;
 
     if (pos.x > gridSizeHalf.x) {
         pos.x = -gridSizeHalf.x;
@@ -226,7 +231,7 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
     out.position = float4(pos, pointSize);
     out.velocity = float4(vel, mass);
     out.color = elementColors[elementIndex];
-    out.life = life + dt;
+    out.life = life + uniforms.deltaTime * 0.5;
     out.wind = wind;
     outBuffer[index] = out;
 }

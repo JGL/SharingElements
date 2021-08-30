@@ -54,5 +54,11 @@
     "symbol": "Mg",
     "mass": 0.1,
     "atoms": 0.015
+  },
+  {
+    "name": "Copper",
+    "symbol": "Cu",
+    "mass": 0.000072,
+    "atoms": 0.0000104
   }]
 }
