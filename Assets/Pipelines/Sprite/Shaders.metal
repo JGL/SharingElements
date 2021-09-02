@@ -31,6 +31,6 @@ fragment float4 spriteFragment(CustomVertexData in [[stage_in]],
                                constant SpriteUniforms &uniforms [[buffer(FragmentBufferMaterialUniforms)]]) {
     const float2 uv = 2.0 * puv - 1.0;
     const float dist = length(uv);
-    float result = gaussian(dist, uniforms.sigma, uniforms.power);
+    const float result = gaussian(dist, uniforms.sigma, uniforms.power);
     return uniforms.color * float4(in.color.rgb, in.color.a * result);
 }

@@ -4,7 +4,7 @@
       "type" : "int",
       "base" : {
         "label" : "Count",
-        "value" : 1048576,
+        "value" : 262144,
         "min" : 0,
         "controlType" : "none",
         "max" : 100
@@ -14,7 +14,7 @@
       "type" : "float",
       "base" : {
         "label" : "Time",
-        "value" : 56.878231048583984,
+        "value" : 5078.23046875,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -35,7 +35,7 @@
       "base" : {
         "maxX" : 1,
         "controlType" : "none",
-        "x" : 1325.4832763671875,
+        "x" : 1682.8878173828125,
         "y" : 828.42706298828125,
         "maxY" : 1,
         "minX" : 0,
@@ -47,7 +47,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl Scale",
-        "value" : 0.004999999888241291,
+        "value" : 0.012500000186264515,
         "min" : 0,
         "controlType" : "slider",
         "max" : 0.05000000074505806
@@ -57,7 +57,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl Speed",
-        "value" : 0.02500000037252903,
+        "value" : 0.25,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -67,17 +67,7 @@
       "type" : "float",
       "base" : {
         "label" : "Curl",
-        "value" : 0.11792523413896561,
-        "min" : 0,
-        "controlType" : "slider",
-        "max" : 1
-      }
-    },
-    {
-      "type" : "float",
-      "base" : {
-        "label" : "Homing",
-        "value" : 0,
+        "value" : 0.17499999701976776,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -97,37 +87,17 @@
       "type" : "float",
       "base" : {
         "label" : "Stream",
-        "value" : 0.25,
+        "value" : 0.125,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
-      }
-    },
-    {
-      "type" : "float",
-      "base" : {
-        "label" : "Spherical",
-        "value" : 0,
-        "min" : 0,
-        "controlType" : "slider",
-        "max" : 1
-      }
-    },
-    {
-      "type" : "float",
-      "base" : {
-        "label" : "Radius",
-        "value" : 0,
-        "min" : 0,
-        "controlType" : "slider",
-        "max" : 1000
       }
     },
     {
       "type" : "float",
       "base" : {
         "label" : "Damping",
-        "value" : 0.02500000037252903,
+        "value" : 0.050185032188892365,
         "min" : 0,
         "controlType" : "slider",
         "max" : 1
@@ -146,8 +116,18 @@
     {
       "type" : "float",
       "base" : {
+        "label" : "Dwell Time",
+        "value" : 20,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
         "label" : "Delta Time",
-        "value" : 0.03358006477355957,
+        "value" : 0.017614960670471191,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
@@ -157,7 +137,7 @@
       "type" : "int",
       "base" : {
         "label" : "Points",
-        "value" : 9,
+        "value" : 19,
         "min" : 0,
         "controlType" : "none",
         "max" : 100
@@ -167,7 +147,7 @@
       "type" : "int",
       "base" : {
         "label" : "Lines",
-        "value" : 4,
+        "value" : 21,
         "min" : 0,
         "controlType" : "none",
         "max" : 100

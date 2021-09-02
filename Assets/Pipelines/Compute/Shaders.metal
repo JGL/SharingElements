@@ -6,6 +6,7 @@
 #include "Library/Shapes.metal"
 #include "Library/Csg.metal"
 #include "Library/Curlnoise.metal"
+#include "Library/Repeat.metal"
 #include "Damping.metal"
 #include "Attraction.metal"
 
@@ -17,13 +18,11 @@ typedef struct {
     float curlScale; //slider,0,0.05,0.005
     float curlSpeed; //slider
     float curl;      //slider
-    float homing;    //slider
     float body;      //slider
     float stream;    //slider
-    float spherical; //slider
-    float radius;    //slider,0,1000,500
     float damping;   //slider
     float dt;        //slider,0,1,1
+    float dwellTime; //input,10
     float deltaTime;
     int points;
     int lines;
@@ -54,7 +53,6 @@ kernel void resetCompute(uint index [[thread_position_in_grid]],
 
     const float pointSize = uniforms.pointSize;
     const float fcount = float(uniforms.count);
-    const int halfCount = int(sqrt(fcount));
     const float fid = float(index) / fcount;
     const float time = uniforms.time;
 
@@ -122,11 +120,16 @@ kernel void resetCompute(uint index [[thread_position_in_grid]],
         }
     }
     Particle out;
-    out.position = float4(getHomePosition(index, halfCount, uniforms.gridSize), pointSize);
+    const float px = 0.5 * uniforms.gridSize.x * (2.0 * random(float2(-fid, 2.34 * fid)) - 1.0);
+    const float py = 0.5 * uniforms.gridSize.y * (2.0 * random(float2(324.0 * fid, -1.34 * fid)) - 1.0);
+    out.position = float4(
+        px,
+        py,
+        0.0,
+        pointSize);
     out.velocity = float4(0.0, 0.0, 0.0, mass);
     out.color = color;
-    out.life = 10.0 * random(float2(fid, time));
-    out.wind = 0.0;
+    out.life = uniforms.dwellTime * random(float2(fid, time));
     out.elementIndex = elementIndex;
     outBuffer[index] = out;
 }
@@ -155,8 +158,6 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
     const float2 gridSize = uniforms.gridSize;
     const float2 gridSizeHalf = gridSize * 0.5;
     const int lineCount = uniforms.lines;
-    const int halfCount = int(sqrt(float(uniforms.count)));
-    const float3 home = getHomePosition(index, halfCount, uniforms.gridSize);
 
     const float4 elementColors[21] = {
         colors.oxygen,
@@ -211,40 +212,29 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
     const int elementIndex = in.elementIndex;
     const float mass = elementMasses[elementIndex];
 
-    float wind = in.wind;
     float life = in.life;
     float3 pos = in.position.xyz;
     float3 vel = in.velocity.xyz;
 
-    const float lifeTime = life / 10.0;
+    const float dwellTime = uniforms.dwellTime;
+    const float lifeTime = life / dwellTime;
     const int low = int(floor(lifeTime));
     const int high = int(ceil(lifeTime));
-    const float norm = map(life, low * 10.0, high * 10.0, 0.0, 1.0);
+    const float norm = map(life, low * dwellTime, high * dwellTime, 0.0, 1.0);
     const int state = int(lifeTime) % 2 == 0 ? 0 : 1;
-
     float3 acc = uniforms.curl * curlNoise(pos * uniforms.curlScale + curlSpeed * time + id * mix(0.0, uniforms.body, state));
-    acc += 0.01 * uniforms.homing * attractionForce(pos, home);
-    acc += 0.01 * uniforms.spherical * sphericalForce(pos, 0.0, mass * uniforms.radius);
 
-    if (lineCount > 0) {
+    if (state && lineCount > 0) {
         const float dist = form(pos, lines, lineCount);
-
         const float3 esp = float3(0.001, 0.0, 0.0);
         float3 delta = float3(
             dist - form(pos + esp.xyy, lines, lineCount),
             dist - form(pos + esp.yxy, lines, lineCount),
             dist - form(pos + esp.yyx, lines, lineCount));
         delta = normalize(delta);
-
-        if (uniforms.stream > 0.01) {
-            if (state) {
-                acc += norm * 0.01 * uniforms.body * delta * dist;
-            } else {
-                acc += uniforms.stream * float3(1.0, 0.0, 0.0);
-            }
-        } else {
-            acc += 0.01 * uniforms.body * delta * dist;
-        }
+        acc += norm * 0.01 * uniforms.body * delta * dist;
+    } else {
+        acc += float3(uniforms.stream, 0.0, 0.0);
     }
 
     acc += dampingForce(vel, uniforms.damping);
@@ -266,8 +256,11 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
     Particle out;
     out.position = float4(pos, pointSize);
     out.velocity = float4(vel, mass);
+
+    // float4 color = elementColors[elementIndex];
+    // float alpha = 1.0 - clamp(abs(gmod(time, 20) - float(elementIndex)), 0.0, 1.0);
+    // color.a *= alpha;
     out.color = elementColors[elementIndex];
-    out.life = life + uniforms.deltaTime * 0.5;
-    out.wind = wind;
+    out.life = life + uniforms.deltaTime;
     outBuffer[index] = out;
 }

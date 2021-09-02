@@ -3,6 +3,5 @@ typedef struct {
     float4 position; // px, py, pz, point size
     float4 velocity; // vx, vy, vz, mass
     float life;
-    float wind;
     int elementIndex;
 } Particle;

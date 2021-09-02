@@ -5,8 +5,8 @@
       "base" : {
         "maxX" : 1,
         "controlType" : "none",
-        "x" : 3360,
-        "y" : 2100,
+        "x" : 3620,
+        "y" : 1782,
         "maxY" : 1,
         "minX" : 0,
         "label" : "Resolution",
@@ -17,7 +17,7 @@
       "type" : "float",
       "base" : {
         "label" : "Time",
-        "value" : 56.878231048583984,
+        "value" : 5078.23046875,
         "min" : 0,
         "controlType" : "none",
         "max" : 1
