@@ -1,64 +1,112 @@
 {
   "elements": [{
-    "name": "Oxygen",
-    "symbol": "O",
-    "mass": 65.0,
-    "atoms": 24.0
-  }, {
-    "name": "Carbon",
-    "symbol": "C",
-    "mass": 18.5,
-    "atoms": 12.0
-  }, {
-    "name": "Hydrogen",
-    "symbol": "H",
-    "mass": 9.5,
-    "atoms": 62.0
-  }, {
-    "name": "Nitrogen",
-    "symbol": "N",
-    "mass": 3.2,
-    "atoms": 1.1
-  }, {
-    "name": "Calcium",
-    "symbol": "Ca",
-    "mass": 1.5,
-    "atoms": 0.22
-  }, {
-    "name": "Phosphorus",
-    "symbol": "P",
-    "mass": 1.0,
-    "atoms": 0.22
-  }, {
-    "name": "Potassium",
-    "symbol": "K",
-    "mass": 0.4,
-    "atoms": 0.03
-  }, {
-    "name": "Sulfur",
-    "symbol": "S",
-    "mass": 0.3,
-    "atoms": 0.038
-  }, {
-    "name": "Sodium",
-    "symbol": "Na",
-    "mass": 0.2,
-    "atoms": 0.037
-  }, {
-    "name": "Chlorine",
-    "symbol": "Cl",
-    "mass": 0.2,
-    "atoms": 0.024
-  }, {
-    "name": "Magnesium",
-    "symbol": "Mg",
-    "mass": 0.1,
-    "atoms": 0.015
-  },
-  {
-    "name": "Copper",
-    "symbol": "Cu",
-    "mass": 0.000072,
-    "atoms": 0.0000104
-  }]
+      "name":"Oxygen",
+      "symbol":"O",
+      "mass":0.65,
+      "atoms":24
+      },
+      {
+      "name":"Carbon",
+      "symbol":"C",
+      "mass":0.18,
+      "atoms":12
+      },
+      {
+      "name":"Hydrogen",
+      "symbol":"H",
+      "mass":0.10,
+      "atoms":62
+      },
+      {
+      "name":"Nitrogen",
+      "symbol":"N",
+      "mass":0.03,
+      "atoms":1.1
+      },
+      {
+      "name":"Calcium",
+      "symbol":"Ca",
+      "mass":0.01,
+      "atoms":0.22
+      },
+      {"name":"Phosphorus",
+      "symbol":"P",
+      "mass":0.01,
+      "atoms":0.22
+      },
+      {"name":"Potassium",
+      "symbol":"K",
+      "mass":0.00200000,
+      "atoms":0.033
+      },
+      {"name":"Sulfur",
+      "symbol":"S",
+      "mass":0.00250000,
+      "atoms":0.038
+      },
+      {"name":"Sodium",
+      "symbol":"Na",
+      "mass":0.00150000,
+      "atoms":0.037
+      },
+      {"name":"Chlorine",
+      "symbol":"Cl",
+      "mass":0.00150000,
+      "atoms":0.024
+      },
+      {"name":"Magnesium",
+      "symbol":"Mg",
+      "mass":0.00050000,
+      "atoms":0.007
+      },
+      {"name":"Iron",
+      "symbol":"Fe",
+      "mass":0.00006000,
+      "atoms":0.00067
+      },
+      {"name":"Fluorine",
+      "symbol":"F",
+      "mass":0.00003700,
+      "atoms":0.0012
+      },
+      {"name":"Zinc",
+      "symbol":"Zn",
+      "mass":0.00003200,
+      "atoms":0.00031
+      },
+      {"name":"Silicon",
+      "symbol":"Si",
+      "mass":0.00002000,
+      "atoms":0.0058
+      },
+      {"name":"Gallium",
+      "symbol":"Ga",
+      "mass":0.00000490,
+      "atoms":0.0007
+      },
+      {"name":"Rubidium",
+      "symbol":"Rb",
+      "mass":0.00000460,
+      "atoms":0.000033
+      },
+      {"name":"Strontium",
+      "symbol":"Sr",
+      "mass":0.00000460,
+      "atoms":0.000033
+      },
+      {"name":"Bromine",
+      "symbol":"Br",
+      "mass":0.00000290,
+      "atoms":0.00003
+      },
+      {"name":"Lead",
+      "symbol":"Pb",
+      "mass":0.00000170,
+      "atoms":0.0000045
+      },
+      {"name":"Copper",
+      "symbol":"Cu",
+      "mass":0.00000100,
+      "atoms":0.0000104
+      }]
 }

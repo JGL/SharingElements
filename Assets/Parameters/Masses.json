@@ -113,6 +113,96 @@
     {
       "type" : "float",
       "base" : {
+        "label" : "Iron Mass",
+        "value" : 5.9999996437909431e-07,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Fluorine Mass",
+        "value" : 3.700000092976552e-07,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Zinc Mass",
+        "value" : 3.1999999805520929e-07,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Silicon Mass",
+        "value" : 1.9999998812636477e-07,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Gallium Mass",
+        "value" : 4.90000005015645e-08,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Rubidium Mass",
+        "value" : 4.6000000253343387e-08,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Strontium Mass",
+        "value" : 4.6000000253343387e-08,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Bromine Mass",
+        "value" : 2.900000062311392e-08,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Lead Mass",
+        "value" : 1.6999999630229468e-08,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
         "label" : "Copper Mass",
         "value" : 7.2000000272964826e-07,
         "min" : 0,

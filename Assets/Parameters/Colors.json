@@ -214,6 +214,177 @@
       "base" : {
         "maxZ" : 1,
         "minZ" : 0,
+        "label" : "Iron",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 0.57482010126113892,
+        "minY" : 0,
+        "z" : 0,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Fluorine",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 0.39944767951965332,
+        "minY" : 0,
+        "z" : 0.62589669227600098,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Zinc",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Silicon",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Gallium",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Rubidium",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Strontium",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Bromine",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Lead",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 1,
+        "minY" : 0,
+        "z" : 1,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
         "label" : "Copper",
         "w" : 1,
         "x" : 1,

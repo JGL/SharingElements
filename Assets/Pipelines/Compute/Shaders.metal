@@ -58,7 +58,7 @@ kernel void resetCompute(uint index [[thread_position_in_grid]],
     const float fid = float(index) / fcount;
     const float time = uniforms.time;
 
-    const float4 elementColors[12] = {
+    const float4 elementColors[21] = {
         colors.oxygen,
         colors.carbon,
         colors.hydrogen,
@@ -70,10 +70,19 @@ kernel void resetCompute(uint index [[thread_position_in_grid]],
         colors.sodium,
         colors.chlorine,
         colors.magnesium,
-        colors.copper
+        colors.iron,
+        colors.fluorine,
+        colors.zinc,
+        colors.silicon,
+        colors.gallium,
+        colors.rubidium,
+        colors.strontium,
+        colors.bromine,
+        colors.lead,
+        colors.copper,
     };
 
-    const float elementMasses[12] = {
+    const float elementMasses[21] = {
         masses.oxygenMass,
         masses.carbonMass,
         masses.hydrogenMass,
@@ -85,6 +94,15 @@ kernel void resetCompute(uint index [[thread_position_in_grid]],
         masses.sodiumMass,
         masses.chlorineMass,
         masses.magnesiumMass,
+        masses.ironMass,
+        masses.fluorineMass,
+        masses.zincMass,
+        masses.siliconMass,
+        masses.galliumMass,
+        masses.rubidiumMass,
+        masses.strontiumMass,
+        masses.bromineMass,
+        masses.leadMass,
         masses.copperMass
     };
 
@@ -92,7 +110,7 @@ kernel void resetCompute(uint index [[thread_position_in_grid]],
     float mass = 0.0;
     int elementIndex = 0;
     float4 color = float4(0.0);
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 21; i++) {
         float elementMass = elementMasses[i];
         if (sum > fid) {
             break;
@@ -140,7 +158,7 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
     const int halfCount = int(sqrt(float(uniforms.count)));
     const float3 home = getHomePosition(index, halfCount, uniforms.gridSize);
 
-    const float4 elementColors[12] = {
+    const float4 elementColors[21] = {
         colors.oxygen,
         colors.carbon,
         colors.hydrogen,
@@ -152,10 +170,19 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
         colors.sodium,
         colors.chlorine,
         colors.magnesium,
-        colors.copper
+        colors.iron,
+        colors.fluorine,
+        colors.zinc,
+        colors.silicon,
+        colors.gallium,
+        colors.rubidium,
+        colors.strontium,
+        colors.bromine,
+        colors.lead,
+        colors.copper,
     };
 
-    const float elementMasses[12] = {
+    const float elementMasses[21] = {
         masses.oxygenMass,
         masses.carbonMass,
         masses.hydrogenMass,
@@ -167,6 +194,15 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
         masses.sodiumMass,
         masses.chlorineMass,
         masses.magnesiumMass,
+        masses.ironMass,
+        masses.fluorineMass,
+        masses.zincMass,
+        masses.siliconMass,
+        masses.galliumMass,
+        masses.rubidiumMass,
+        masses.strontiumMass,
+        masses.bromineMass,
+        masses.leadMass,
         masses.copperMass
     };
 
