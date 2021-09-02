@@ -206,6 +206,9 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         }
         return param
     }()
+    
+    var hipExtension = FloatParameter("Hip Extension", 0.0, 0.0, 500.0, .slider)
+    
     var fakePose = BoolParameter("Fake Pose", false, .toggle)
     
     var fakeLines: [simd_float3] = [
@@ -356,6 +359,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         params.append(updateParticles)
         params.append(showParticles)
         params.append(cameraOffset)
+        params.append(hipExtension)
         return params
     }()
     

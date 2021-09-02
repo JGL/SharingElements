@@ -129,6 +129,14 @@ extension Renderer {
                             }
                         }
                         
+                        if leftHipMesh.visible, rightHipMesh.visible {
+                            let lh = leftHipMesh.position
+                            let rh = rightHipMesh.position
+                            let dir = simd_normalize(lh - rh) * hipExtension.value
+                            leftHipMesh.position = leftHipMesh.position + dir
+                            rightHipMesh.position = rightHipMesh.position - dir
+                        }                        
+                        
                         pointsMesh.points = points
 
                         if leftWristMesh.visible, leftElbowMesh.visible {

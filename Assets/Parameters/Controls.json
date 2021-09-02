@@ -112,7 +112,7 @@
       "type" : "string",
       "base" : {
         "label" : "Particle Count",
-        "value" : "512 x 512",
+        "value" : "1024 x 1024",
         "options" : [
           "256 x 256",
           "512 x 512",
