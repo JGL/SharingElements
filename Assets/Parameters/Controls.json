@@ -7,11 +7,11 @@
         "minZ" : 0,
         "label" : "Background",
         "w" : 1,
-        "x" : 0.96070021390914917,
+        "x" : 0.96071082353591919,
         "maxY" : 1,
-        "y" : 0.96083825826644897,
+        "y" : 0.96082574129104614,
         "minY" : 0,
-        "z" : 0.96067017316818237,
+        "z" : 0.96067172288894653,
         "maxX" : 1,
         "controlType" : "colorpicker",
         "minX" : 0,
@@ -80,7 +80,7 @@
       "base" : {
         "controlType" : "toggle",
         "label" : "Update Pose",
-        "value" : false
+        "value" : true
       }
     },
     {
@@ -142,6 +142,19 @@
         "controlType" : "toggle",
         "label" : "Show Particles",
         "value" : true
+      }
+    },
+    {
+      "type" : "float2",
+      "base" : {
+        "maxX" : 1,
+        "controlType" : "inputfield",
+        "x" : 0,
+        "y" : 0,
+        "maxY" : 1,
+        "minX" : 0,
+        "label" : "Camera Offset",
+        "minY" : 0
       }
     }
   ]

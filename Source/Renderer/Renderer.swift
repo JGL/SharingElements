@@ -200,6 +200,12 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     var bgColor = Float4Parameter("Background", [1, 1, 1, 1], .colorpicker)
     var fullscreen = BoolParameter("Fullscreen", false, .toggle)
     var updatePose = BoolParameter("Update Pose", true, .toggle)
+    lazy var cameraOffset: Float2Parameter = {
+        let param = Float2Parameter("Camera Offset", [0, 0], .inputfield) { [unowned self] value in
+            camera.position = simd_make_float3(-value.x, -value.y, 1000.0)
+        }
+        return param
+    }()
     var fakePose = BoolParameter("Fake Pose", false, .toggle)
     
     var fakeLines: [simd_float3] = [
@@ -349,6 +355,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         params.append(resetParticles)
         params.append(updateParticles)
         params.append(showParticles)
+        params.append(cameraOffset)
         return params
     }()
     
@@ -769,9 +776,6 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     override func keyDown(with event: NSEvent) {
         if event.characters == "e" {
             openEditor()
-        }
-        else if event.characters == "i" {
-            toggleInspector()
         }
         else if event.characters == "f" {
             fullscreen.value.toggle()
