@@ -208,6 +208,25 @@
         "maxW" : 1,
         "minW" : 0
       }
+    },
+    {
+      "type" : "float4",
+      "base" : {
+        "maxZ" : 1,
+        "minZ" : 0,
+        "label" : "Copper",
+        "w" : 1,
+        "x" : 1,
+        "maxY" : 1,
+        "y" : 0.71456629037857056,
+        "minY" : 0,
+        "z" : 0.10159530490636826,
+        "maxX" : 1,
+        "controlType" : "colorpicker",
+        "minX" : 0,
+        "maxW" : 1,
+        "minW" : 0
+      }
     }
   ]
 }

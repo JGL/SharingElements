@@ -17,11 +17,11 @@ extension Renderer {
     }
 
     func stopCamera() {
-        outputData.setSampleBufferDelegate(nil, queue: nil)
         if let captureInput = self.captureInput {
             captureSession.removeInput(captureInput)
         }
         captureSession.stopRunning()
+        outputData.setSampleBufferDelegate(nil, queue: nil)
     }
 
     func setupInputList() {
@@ -68,12 +68,17 @@ extension Renderer {
 
         captureSession.beginConfiguration()
         captureSession.sessionPreset = .vga640x480
-        guard captureSession.canAddInput(captureInput!) else { return }
-        captureSession.addInput(captureInput!)
+        if captureSession.canAddInput(captureInput!) {
+            captureSession.addInput(captureInput!)
+        }
+    
         captureSessionQueue = DispatchQueue(label: "CameraSessionQueue", attributes: [])
         outputData.setSampleBufferDelegate(self, queue: captureSessionQueue)
-        guard captureSession.canAddOutput(outputData) else { return }
-        captureSession.addOutput(outputData)
+        
+        if captureSession.canAddOutput(outputData) {
+            captureSession.addOutput(outputData)
+        }
+        
         captureSession.commitConfiguration()
         captureSession.startRunning()
     }

@@ -28,7 +28,7 @@ extension Renderer {
         if inspectorWindow == nil {
             #if os(macOS)
             let inspectorWindow = InspectorWindow("Inspector")
-            inspectorWindow.setIsVisible(true)
+            inspectorWindow.setIsVisible(false)
             #elseif os(iOS)
             let inspectorWindow = InspectorWindow("\(label) Controls", edge: .right)
             mtkView.addSubview(inspectorWindow.view)

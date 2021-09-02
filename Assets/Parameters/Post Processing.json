@@ -1,0 +1,27 @@
+{
+  "params" : [
+    {
+      "type" : "float2",
+      "base" : {
+        "maxX" : 1,
+        "controlType" : "none",
+        "x" : 3360,
+        "y" : 2100,
+        "maxY" : 1,
+        "minX" : 0,
+        "label" : "Resolution",
+        "minY" : 0
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Time",
+        "value" : 132.38014221191406,
+        "min" : 0,
+        "controlType" : "none",
+        "max" : 1
+      }
+    }
+  ]
+}

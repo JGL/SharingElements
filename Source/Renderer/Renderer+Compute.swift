@@ -78,7 +78,7 @@ extension Renderer {
             let gridHeight = 2.0 * abs(camera.position.z) * tan(theta)
             let gridWidth = gridHeight * camera.aspect
             uniforms.parameters.set("Grid Size", simd_make_float2(gridWidth, gridHeight))
-            uniforms.parameters.set("Count", particleCount.value)
+            uniforms.parameters.set("Count", particleCountValue)
             uniforms.parameters.set("Time", Float(currentTime))
             uniforms.parameters.set("Delta Time", Float(deltaTime))
             uniforms.parameters.set("Points", pointsMesh.points.count)

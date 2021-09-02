@@ -20,6 +20,14 @@
       }
     },
     {
+      "type" : "bool",
+      "base" : {
+        "controlType" : "toggle",
+        "label" : "Post Process",
+        "value" : false
+      }
+    },
+    {
       "type" : "string",
       "base" : {
         "label" : "Blending",
@@ -37,17 +45,16 @@
       "base" : {
         "controlType" : "toggle",
         "label" : "Fullscreen",
-        "value" : false
+        "value" : true
       }
     },
     {
       "type" : "string",
       "base" : {
         "label" : "Video Input",
-        "value" : "Logitech BRIO",
+        "value" : "FaceTime HD  ",
         "options" : [
-          "FaceTime HD  ",
-          "Logitech BRIO"
+          "FaceTime HD  "
         ],
         "controlType" : "dropdown"
       }
@@ -81,7 +88,7 @@
       "base" : {
         "controlType" : "toggle",
         "label" : "Fake Pose",
-        "value" : true
+        "value" : false
       }
     },
     {
@@ -101,13 +108,16 @@
       }
     },
     {
-      "type" : "int",
+      "type" : "string",
       "base" : {
         "label" : "Particle Count",
-        "value" : 262144,
-        "min" : 0,
-        "controlType" : "inputfield",
-        "max" : 100
+        "value" : "512 x 512",
+        "options" : [
+          "256 x 256",
+          "512 x 512",
+          "1024 x 1024"
+        ],
+        "controlType" : "dropdown"
       }
     },
     {

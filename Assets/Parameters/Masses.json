@@ -109,6 +109,16 @@
         "controlType" : "inputfield",
         "max" : 1
       }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Copper Mass",
+        "value" : 7.2000000272964826e-07,
+        "min" : 0,
+        "controlType" : "inputfield",
+        "max" : 1
+      }
     }
   ]
 }

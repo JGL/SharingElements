@@ -23,7 +23,7 @@ typedef struct {
     float spherical; //slider
     float radius;    //slider,0,1000,500
     float damping;   //slider
-    float dt;        //slider
+    float dt;        //slider,0,1,1
     float deltaTime;
     int points;
     int lines;

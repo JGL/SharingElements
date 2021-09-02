@@ -27,16 +27,29 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     
     var metalFileCompiler = MetalFileCompiler()
 
-    lazy var particleCount: IntParameter = {
-        let param = IntParameter("Particle Count", 4096, .inputfield) { value in
-            self.spriteMesh.instanceCount = value
-            self.computeSystem.count = value
+    var particleCountValue: Int {
+        switch particleCount.value {
+        case "256 x 256":
+            return 65536
+        case "512 x 512":
+            return 262144
+        case "1024 x 1024":
+            return 1048576
+        default:
+            return 65536
+        }
+    }
+    
+    lazy var particleCount: StringParameter = {
+        let param = StringParameter("Particle Count", "256 x 256", ["256 x 256", "512 x 512", "1024 x 1024"], .dropdown) { [unowned self] _ in
+            self.spriteMesh.instanceCount = self.particleCountValue
+            self.computeSystem.count = self.particleCountValue
         }
         return param
     }()
     
     lazy var computeSystem: BufferComputeSystem = {
-        let compute = BufferComputeSystem(context: context, count: particleCount.value, feedback: false)
+        let compute = BufferComputeSystem(context: context, count: particleCountValue, feedback: false)
         compute.preCompute = { [unowned self] (computeEncoder: MTLComputeCommandEncoder, bufferOffset: Int) in
             var offset = bufferOffset
             if let uniforms = self.computeUniforms {
@@ -60,11 +73,6 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         return compute
     }()
     
-    var orbitParams: ParameterGroup?
-    var streamParams: ParameterGroup?
-    var bodyParams: ParameterGroup?
-    var gridParams: ParameterGroup?
-    
     var computeParams: ParameterGroup?
     var computeUniforms: UniformBuffer?
     var colorUniforms: UniformBuffer?
@@ -80,7 +88,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     
     lazy var spriteMesh: Mesh = {
         let mesh = Mesh(geometry: PointGeometry(), material: spriteMaterial)
-        mesh.instanceCount = particleCount.value
+        mesh.instanceCount = particleCountValue
         mesh.preDraw = { [unowned self] (renderEncoder: MTLRenderCommandEncoder) in
             if let buffer = self.computeSystem.getBuffer("Particle") {
                 renderEncoder.setVertexBuffer(buffer, offset: 0, index: VertexBufferIndex.Custom0.rawValue)
@@ -167,7 +175,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
             "Line Material": lineMaterial.parameters,
             "Sprite Material": spriteMaterial.parameters,
             "Particles": computeParams,
-            "Post Processing" : postMaterial.parameters
+            "Post Processing": postMaterial.parameters
         ]
     }
     
@@ -183,47 +191,47 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     var fakePose = BoolParameter("Fake Pose", false, .toggle)
     
     var fakeLines: [simd_float3] = [
-        simd_make_float3(-191.417542, 43.109070,  0.000000),
-        simd_make_float3(-90.650269,  40.662903,  0.000000),
-        simd_make_float3(-90.650269,  40.662903,  0.000000),
-        simd_make_float3(18.745117,  34.053711,  0.000000),
-        simd_make_float3(18.745117,  34.053711,  0.000000),
-        simd_make_float3(77.517578,  33.638794,  0.000000),
-        simd_make_float3(18.745117,  34.053711,  0.000000),
+        simd_make_float3(-191.417542, 43.109070, 0.000000),
+        simd_make_float3(-90.650269, 40.662903, 0.000000),
+        simd_make_float3(-90.650269, 40.662903, 0.000000),
+        simd_make_float3(18.745117, 34.053711, 0.000000),
+        simd_make_float3(18.745117, 34.053711, 0.000000),
+        simd_make_float3(77.517578, 33.638794, 0.000000),
+        simd_make_float3(18.745117, 34.053711, 0.000000),
         simd_make_float3(46.117737, -163.745056, 0.000000),
         simd_make_float3(46.117737, -163.745056, 0.000000),
         simd_make_float3(-57.649292, -278.170410, 0.000000),
         simd_make_float3(-57.649292, -278.170410, 0.000000),
-        simd_make_float3(-167.979126,-347.207123, 0.000000),
+        simd_make_float3(-167.979126, -347.207123, 0.000000),
         simd_make_float3(46.117737, -163.745056, 0.000000),
         simd_make_float3(75.280396, -164.072021, 0.000000),
-        simd_make_float3(77.517578,  33.638794,  0.000000),
-        simd_make_float3(99.477173,  86.022461,  0.000000),
-        simd_make_float3(77.517578,  33.638794,  0.000000),
-        simd_make_float3(136.290039, 33.223816,  0.000000),
-        simd_make_float3(136.290039, 33.223816,  0.000000),
-        simd_make_float3(247.299805, 76.679321,  0.000000),
-        simd_make_float3(247.299805, 76.679321,  0.000000),
+        simd_make_float3(77.517578, 33.638794, 0.000000),
+        simd_make_float3(99.477173, 86.022461, 0.000000),
+        simd_make_float3(77.517578, 33.638794, 0.000000),
+        simd_make_float3(136.290039, 33.223816, 0.000000),
+        simd_make_float3(136.290039, 33.223816, 0.000000),
+        simd_make_float3(247.299805, 76.679321, 0.000000),
+        simd_make_float3(247.299805, 76.679321, 0.000000),
         simd_make_float3(344.167847, 103.910950, 0.000000),
-        simd_make_float3(136.290039, 33.223816,  0.000000),
-        simd_make_float3(104.442993,-164.398956, 0.000000),
-        simd_make_float3(104.442993,-164.398956, 0.000000),
-        simd_make_float3(250.483887,-239.269867, 0.000000),
-        simd_make_float3(250.483887,-239.269867, 0.000000),
-        simd_make_float3(212.481323,-401.193481, 0.000000),
-        simd_make_float3(104.442993,-164.398956, 0.000000),
+        simd_make_float3(136.290039, 33.223816, 0.000000),
+        simd_make_float3(104.442993, -164.398956, 0.000000),
+        simd_make_float3(104.442993, -164.398956, 0.000000),
+        simd_make_float3(250.483887, -239.269867, 0.000000),
+        simd_make_float3(250.483887, -239.269867, 0.000000),
+        simd_make_float3(212.481323, -401.193481, 0.000000),
+        simd_make_float3(104.442993, -164.398956, 0.000000),
         simd_make_float3(75.280396, -164.072021, 0.000000),
-        simd_make_float3(77.517578,  33.638794,  0.000000),
+        simd_make_float3(77.517578, 33.638794, 0.000000),
         simd_make_float3(75.280396, -164.072021, 0.000000),
-        simd_make_float3(18.745117,  34.053711,  0.000000),
-        simd_make_float3(104.442993,-164.398956, 0.000000),
-        simd_make_float3(136.290039, 33.223816,  0.000000),
+        simd_make_float3(18.745117, 34.053711, 0.000000),
+        simd_make_float3(104.442993, -164.398956, 0.000000),
+        simd_make_float3(136.290039, 33.223816, 0.000000),
         simd_make_float3(46.117737, -163.745056, 0.000000),
-        simd_make_float3(128.328278,-16.181877,  0.000000),
-        simd_make_float3(25.588272, -15.395981,  0.000000),
-        simd_make_float3(120.366516,-65.587570,  0.000000),
-        simd_make_float3(32.431427, -64.845673,  0.000000),
-        simd_make_float3(112.404755,-114.993256, 0.000000),
+        simd_make_float3(128.328278, -16.181877, 0.000000),
+        simd_make_float3(25.588272, -15.395981, 0.000000),
+        simd_make_float3(120.366516, -65.587570, 0.000000),
+        simd_make_float3(32.431427, -64.845673, 0.000000),
+        simd_make_float3(112.404755, -114.993256, 0.000000),
         simd_make_float3(39.274582, -114.295364, 0.000000)
     ]
     
@@ -312,34 +320,6 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         return param
     }()
     
-    lazy var state: StringParameter = {
-        var param = StringParameter("State", "Orbit", ["Orbit", "Grid", "Body", "Stream"], .dropdown) { [unowned self] value in
-            if let computeParams = self.computeParams {
-                switch value {
-                case "Orbit":
-                    if let orbitParams = self.orbitParams {
-                        computeParams.setFrom(orbitParams, setValues: true)
-                    }
-                case "Grid":
-                    if let gridParams = self.gridParams {
-                        computeParams.setFrom(gridParams, setValues: true)
-                    }
-                case "Body":
-                    if let bodyParams = self.bodyParams {
-                        computeParams.setFrom(bodyParams, setValues: true)
-                    }
-                case "Stream":
-                    if let streamParams = self.streamParams {
-                        computeParams.setFrom(streamParams, setValues: true)
-                    }
-                default:
-                    break
-                }
-            }
-        }
-        return param
-    }()
-    
     lazy var appParams: ParameterGroup = {
         let params = ParameterGroup("Controls")
         params.append(bgColor)
@@ -357,7 +337,6 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         params.append(resetParticles)
         params.append(updateParticles)
         params.append(showParticles)
-        params.append(state)
         return params
     }()
     
@@ -645,10 +624,6 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         // do stuff here
     }
     
-    deinit {
-        cleanup()
-    }
-    
     func setupData() {
         let decoder = JSONDecoder()
         var data: Data
@@ -686,44 +661,18 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         setupMetalCompiler()
         setupLibrary()
         setupObservers()
-        setupStates()
         load()
     }
     
-    func setupStates()
-    {
-        let orbitParams = ParameterGroup("Particles")
-        orbitParams.load(presetsURL
-                            .appendingPathComponent("Orbit")
-                            .appendingPathComponent("Parameters")
-                            .appendingPathComponent("Particles.json"), append: true)
-        self.orbitParams = orbitParams
-        
-        let streamParams = ParameterGroup("Particles")
-        streamParams.load(presetsURL
-                            .appendingPathComponent("Stream")
-                            .appendingPathComponent("Parameters")
-                            .appendingPathComponent("Particles.json"), append: true)
-        self.streamParams = streamParams
-    
-        let bodyParams = ParameterGroup("Particles")
-        bodyParams.load(presetsURL
-                            .appendingPathComponent("Body")
-                            .appendingPathComponent("Parameters")
-                            .appendingPathComponent("Particles.json"), append: true)
-        self.bodyParams = bodyParams
-        
-        let gridParams = ParameterGroup("Particles")
-        gridParams.load(presetsURL
-                            .appendingPathComponent("Grid")
-                            .appendingPathComponent("Parameters")
-                            .appendingPathComponent("Particles.json"), append: true)
-        self.gridParams = gridParams
-    }
-    
     public func cleanup() {
+        print("Renderer Cleanup")
         save()
         stopCamera()
+    }
+    
+    deinit {
+        print("Renderer Deinit")
+        cleanup()
     }
     
     func getTime() -> CFTimeInterval {
@@ -749,8 +698,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         }
     }
     
-    func updateRenderTexture()
-    {
+    func updateRenderTexture() {
         if renderTextureSize.x != Int(mtkView.drawableSize.width) || renderTextureSize.y != Int(mtkView.drawableSize.height) {
             renderTexture = createTexture("Render Texture", Int(mtkView.drawableSize.width), Int(mtkView.drawableSize.height), colorPixelFormat, context.device)
             renderTextureSize = simd_make_int2(Int32(Int(mtkView.drawableSize.width)), Int32(mtkView.drawableSize.height))
@@ -769,8 +717,6 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         
         postMaterial.set("Time", Float(currentTime))
         postMaterial.set("Resolution", simd_make_float2(Float(mtkView.drawableSize.width), Float(mtkView.drawableSize.height)))
-        
-        
         
         if let texture = videoTexture, videoMesh.scale.x != Float(texture.width), videoMesh.scale.y != Float(texture.height) {
             videoMesh.scale = simd_make_float3((flipVideo.value ? -1.0 : 1.0) * Float(texture.width), Float(texture.height), 1)
@@ -794,7 +740,6 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         else {
             renderer.draw(renderPassDescriptor: renderPassDescriptor, commandBuffer: commandBuffer)
         }
-        
     }
     
     override func resize(_ size: (width: Float, height: Float)) {

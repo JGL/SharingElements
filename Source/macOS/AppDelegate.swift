@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     var window: NSWindow?
     var viewController: Forge.ViewController!
-    let renderer = Renderer()
+    weak var renderer: Renderer?
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         if fileExists(getDocumentsAssetsDirectoryUrl()) {
@@ -37,14 +37,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.window = window
         self.viewController = Forge.ViewController(nibName: .init("ViewController"), bundle: Bundle(for: Forge.ViewController.self))
         guard let view = self.viewController?.view else { return }
-        self.viewController.renderer = self.renderer
+        let renderer = Renderer()
+        self.viewController.renderer = renderer
+        self.renderer = renderer
         guard let contentView = window.contentView else { return }
 
         view.frame = contentView.bounds
         view.autoresizingMask = [.width, .height]
         contentView.addSubview(view)
 
-        window.setFrameAutosaveName("BodyElements")
+        window.setFrameAutosaveName("Sharing Elements")
         window.titlebarAppearsTransparent = true
         window.title = ""
         window.makeKeyAndOrderFront(nil)
@@ -53,10 +55,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
+        if let renderer = self.renderer {
+            renderer.cleanup()
+        }
         self.viewController?.view.removeFromSuperview()
         self.viewController.renderer = nil
         self.viewController = nil
-        self.renderer.cleanup()
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
@@ -66,12 +70,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: - Toggle Inspector
 
     @IBAction func toggleInspector(_ sender: NSMenuItem) {
-        self.renderer.toggleInspector()
+        guard let renderer = self.renderer else { return }
+        renderer.toggleInspector()
     }
     
     // MARK: - Presets
     
     @IBAction func savePreset(_ sender: NSMenuItem) {
+        guard let renderer = self.renderer else { return }
         let msg = NSAlert()
         msg.addButton(withTitle: "OK")
         msg.addButton(withTitle: "Cancel")
@@ -94,14 +100,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @IBAction func savePresetAs(_ sender: NSMenuItem) {
+        guard let renderer = self.renderer else { return }
         let savePanel = NSSavePanel()
         savePanel.canCreateDirectories = true
         savePanel.title = "Save Preset"
         savePanel.allowedFileTypes = [""]
         savePanel.nameFieldStringValue = ""
-        savePanel.begin(completionHandler: { [unowned self] (result: NSApplication.ModalResponse) in
+        savePanel.begin(completionHandler: { (result: NSApplication.ModalResponse) in
             if result == .OK, let url = savePanel.url {
-                self.renderer.save(url)
+                renderer.save(url)
             }
             savePanel.close()
         })
@@ -147,6 +154,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc func loadPreset(_ sender: NSMenuItem) {
+        guard let renderer = self.renderer else { return }
+        
         renderer.loadPreset(sender.title)
                     
         guard let menu = presetsMenu else { return }
