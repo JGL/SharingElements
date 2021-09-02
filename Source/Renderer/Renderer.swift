@@ -78,6 +78,18 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     var colorUniforms: UniformBuffer?
     var massUniforms: UniformBuffer?
     
+    var mouseHidden: Bool = false {
+        didSet {
+            if mouseHidden {
+                NSCursor.hide()
+            }
+            else
+            {
+                NSCursor.unhide()
+            }
+        }
+    }
+    
     lazy var spriteMaterial: SpriteMaterial = {
         let material = SpriteMaterial(pipelinesURL: pipelinesURL)
         material.delegate = self
@@ -662,6 +674,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         setupLibrary()
         setupObservers()
         load()
+        mouseHidden = true
     }
     
     public func cleanup() {
@@ -762,6 +775,9 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         }
         else if event.characters == "f" {
             fullscreen.value.toggle()
+        }
+        else if event.characters == "m" {
+            mouseHidden = !mouseHidden 
         }
     }
     
