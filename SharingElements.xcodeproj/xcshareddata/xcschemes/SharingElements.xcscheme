@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E13B5583230F3D44009E143D"
-               BuildableName = "BodyElements.app"
-               BlueprintName = "BodyElements macOS"
-               ReferencedContainer = "container:BodyElements.xcodeproj">
+               BuildableName = "SharingElements.app"
+               BlueprintName = "SharingElements macOS"
+               ReferencedContainer = "container:SharingElements.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,9 +45,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E13B5583230F3D44009E143D"
-            BuildableName = "BodyElements.app"
-            BlueprintName = "BodyElements macOS"
-            ReferencedContainer = "container:BodyElements.xcodeproj">
+            BuildableName = "SharingElements.app"
+            BlueprintName = "SharingElements macOS"
+            ReferencedContainer = "container:SharingElements.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E13B5583230F3D44009E143D"
-            BuildableName = "BodyElements.app"
-            BlueprintName = "BodyElements macOS"
-            ReferencedContainer = "container:BodyElements.xcodeproj">
+            BuildableName = "SharingElements.app"
+            BlueprintName = "SharingElements macOS"
+            ReferencedContainer = "container:SharingElements.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

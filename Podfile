@@ -9,7 +9,7 @@ install! 'cocoapods', :disable_input_output_paths => true
 
 use_frameworks!
 
-target 'BodyElements macOS' do
+target 'SharingElements macOS' do
   platform :osx, '11.0'
   pod 'Forge', :path => '../Forge'
   pod 'Satin', :path => '../Satin'
