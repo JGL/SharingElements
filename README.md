@@ -1,4 +1,4 @@
-# BodyElements
+# SharingElements
 
 An interactive body tracking installation
 
@@ -22,13 +22,13 @@ Software installation instructions:
 Open [Terminal](https://en.wikipedia.org/wiki/Terminal_(macOS)) and create a folder using the [mkdir](https://en.wikipedia.org/wiki/Mkdir) command for the project in a place of your choosing:
 
 ```
-mkdir BodyElementsInstallation
+mkdir SharingElementsInstallation
 ```
 
 Use the [cd](https://en.wikipedia.org/wiki/Cd_(command)) command to open the folder you just created:
 
 ```
-cd BodyElementsInstallation
+cd SharingElementsInstallation
 ```
 
 If you haven't already done so, install [Homebrew](https://brew.sh/) via the following command:
@@ -58,10 +58,10 @@ rbenv global 3.0.1
 ruby -v
 ```
 
-N.B. If ruby -v doesn't report 3.0.1, you may have to restart Terminal.app in order for it to be reported correctly. Clone [this repository](https://github.com/JGL/BodyElements/) using the git clone command:
+N.B. If ruby -v doesn't report 3.0.1, you may have to restart Terminal.app in order for it to be reported correctly. Clone [this repository](https://github.com/JGL/SharingElements/) using the git clone command:
 
 ```
-git clone git@github.com:JGL/BodyElements.git
+git clone git@github.com:JGL/SharingElements.git
 ```
 
 Clone the [Satin](https://github.com/Hi-Rez/Satin), [Forge](https://github.com/Hi-Rez/Forge) & [Youi](https://github.com/Hi-Rez/Youi) repositories:
@@ -98,5 +98,5 @@ bundle exec pod install
 Finally, make sure to open the Xcode workspace, not the Xcode project:
 
 ```
-open BodyElements.xcworkspace
+open SharingElements.xcworkspace
 ```
