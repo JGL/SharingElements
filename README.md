@@ -79,7 +79,7 @@ sudo gem install bundler
 Use the [cd](https://en.wikipedia.org/wiki/Cd_(command)) command to open the folder that the first git clone command created:
 
 ```
-cd BodyElements
+cd SharingElements
 ```
 
 Install the Bundler dependencies specified in the [Gemfile](https://guides.cocoapods.org/using/a-gemfile.html):
