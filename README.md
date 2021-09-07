@@ -105,8 +105,9 @@ Compile and build.
 
 ## Running instructions:
 
-Press the M key to hide/show the mouse
-Press the F key to switch between fullscreen/windowed mode
-Press command I to hide/show the interface
-Click and drag with the mouse to rotate the canvas in 3D, double click to reset to origin
+* Press the M key to hide/show the mouse
+* Press the F key to switch between fullscreen/windowed mode
+* Press command I to hide/show the interface
+* Click and drag with the mouse to rotate the canvas in 3D, double click to reset to origin
+
 Don't forget to disable screen saver and other energy saving options on the installation Mac Mini M1!
