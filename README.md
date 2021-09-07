@@ -2,7 +2,7 @@
 
 An interactive body tracking installation
 
-## Getting Started
+## Requirements
 
 Hardware requirements: MacOS computer (preferably (M1 chip)[https://en.wikipedia.org/wiki/Apple_M1] based machine) and either built in FaceTime camera or external Webcam.
 
@@ -17,7 +17,7 @@ Software requirements:
 * Xcode command line tools, which can be installed via the command: ```xcode-select --install```
 * Command line access via SSH to your GitHub account. [See this guide to connecting to GitHub with SSH](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh).
 
-Software installation instructions:
+## Software installation instructions:
 
 Open [Terminal](https://en.wikipedia.org/wiki/Terminal_(macOS)) and create a folder using the [mkdir](https://en.wikipedia.org/wiki/Mkdir) command for the project in a place of your choosing:
 
@@ -95,8 +95,18 @@ Install the [CocoaPod](https://cocoapods.org/) dependencies using Bundler:
 bundle exec pod install
 ```
 
-Finally, make sure to open the Xcode workspace, not the Xcode project:
+Make sure to open the Xcode workspace, not the Xcode project:
 
 ```
 open SharingElements.xcworkspace
 ```
+
+Compile and build.
+
+## Running instructions:
+
+Press the M key to hide/show the mouse
+Press the F key to switch between fullscreen/windowed mode
+Press command I to hide/show the interface
+Click and drag with the mouse to rotate the canvas in 3D, double click to reset to origin
+Don't forget to disable screen saver and other energy saving options on the installation Mac Mini M1!
