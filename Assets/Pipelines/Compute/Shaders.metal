@@ -232,7 +232,9 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
             dist - form(pos + esp.yxy, lines, lineCount),
             dist - form(pos + esp.yyx, lines, lineCount));
         delta = normalize(delta);
-        acc += norm * 0.01 * uniforms.body * delta * dist;
+        if (!isnan(delta.x) && !isnan(delta.x) && !isnan(delta.x) && !isnan(dist)) {
+            acc += norm * 0.01 * uniforms.body * delta * dist;
+        }
     } else {
         acc += float3(uniforms.stream, 0.0, 0.0);
     }
