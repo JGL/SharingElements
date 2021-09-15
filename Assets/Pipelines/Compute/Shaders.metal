@@ -151,8 +151,10 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
                           constant Masses &masses [[buffer(ComputeBufferCustom4)]]) {
 
     const float id = float(index);
+    const float fcount = float(uniforms.count);
+    const float fid = id / fcount;
     const float time = uniforms.time;
-    const float dt = uniforms.dt;
+    const float dt = max(uniforms.dt, 0.005);
     const float curlSpeed = uniforms.curlSpeed;
     const float pointSize = uniforms.pointSize;
     const float2 gridSize = uniforms.gridSize;
@@ -232,36 +234,44 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
             dist - form(pos + esp.yxy, lines, lineCount),
             dist - form(pos + esp.yyx, lines, lineCount));
         delta = normalize(delta);
-        if (!isnan(delta.x) && !isnan(delta.x) && !isnan(delta.x) && !isnan(dist)) {
-            acc += norm * 0.01 * uniforms.body * delta * dist;
-        }
+        acc += norm * 0.01 * uniforms.body * delta * dist;
     } else {
         acc += float3(uniforms.stream, 0.0, 0.0);
     }
 
     acc += dampingForce(vel, uniforms.damping);
+    if (isnan(acc.x) || isnan(acc.y) || isnan(acc.z)) {
+        acc = 0.0;
+    }
+
+    if (isnan(vel.x) || isnan(vel.y) || isnan(vel.z)) {
+        vel = 0.0;
+    }
+
+    if (isnan(pos.x) || isnan(pos.y) || isnan(pos.z)) {
+        const float px = 0.5 * uniforms.gridSize.x * (2.0 * random(float2(-fid, fid * time)) - 1.0);
+        const float py = 0.5 * uniforms.gridSize.y * (2.0 * random(float2(324.0 * fid, fid * 0.5 * time)) - 1.0);
+        pos.x = px;
+        pos.x = py;
+        pos.z = 0.0;
+    }
+
     vel += acc * dt;
     pos += vel * dt;
 
     if (pos.x > gridSizeHalf.x) {
         pos.x = -gridSizeHalf.x;
     }
-
     if (pos.y > gridSizeHalf.y) {
         pos.y = -gridSizeHalf.y;
         vel = 0.0;
     } else if (pos.y < -gridSizeHalf.y) {
         pos.y = gridSizeHalf.y;
-        vel = 0.0;
     }
 
     Particle out;
     out.position = float4(pos, pointSize);
     out.velocity = float4(vel, mass);
-
-    // float4 color = elementColors[elementIndex];
-    // float alpha = 1.0 - clamp(abs(gmod(time, 20) - float(elementIndex)), 0.0, 1.0);
-    // color.a *= alpha;
     out.color = elementColors[elementIndex];
     out.life = life + uniforms.deltaTime;
     outBuffer[index] = out;
