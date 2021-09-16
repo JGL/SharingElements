@@ -263,10 +263,13 @@ kernel void updateCompute(uint index [[thread_position_in_grid]],
         pos.x = -gridSizeHalf.x;
     }
     if (pos.y > gridSizeHalf.y) {
-        pos.y = -gridSizeHalf.y;
-        vel = 0.0;
+        const float py = 0.5 * uniforms.gridSize.y * (2.0 * random(float2(324.0 * fid, fid * 0.5 * time)) - 1.0);
+        pos.x = -gridSizeHalf.x;
+        pos.y = py;
     } else if (pos.y < -gridSizeHalf.y) {
-        pos.y = gridSizeHalf.y;
+        const float py = 0.5 * uniforms.gridSize.y * (2.0 * random(float2(324.0 * fid, fid * 0.5 * time)) - 1.0);
+        pos.x = -gridSizeHalf.x;
+        pos.y = py;
     }
 
     Particle out;
