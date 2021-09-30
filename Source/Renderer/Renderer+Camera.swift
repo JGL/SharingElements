@@ -175,8 +175,12 @@ extension Renderer {
                         }
 
                         if neckMesh.visible, noseMesh.visible {
+                            let down = neckMesh.position
+                            let up = noseMesh.position
+                            let dir = simd_normalize(down - up) * neckExtension.value
+                            
                             lines.append(neckMesh.position)
-                            lines.append(noseMesh.position)
+                            lines.append(noseMesh.position - dir)
                         }
 
                         if neckMesh.visible, rightShoulderMesh.visible {

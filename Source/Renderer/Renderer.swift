@@ -208,6 +208,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
     }()
     
     var hipExtension = FloatParameter("Hip Extension", 0.0, 0.0, 500.0, .slider)
+    var neckExtension = FloatParameter("Neck Extension", 0.0, 0.0, 500.0, .slider)
     
     var fakePose = BoolParameter("Fake Pose", false, .toggle)
     
@@ -360,6 +361,7 @@ class Renderer: Forge.Renderer, MaterialDelegate, AVCaptureVideoDataOutputSample
         params.append(showParticles)
         params.append(cameraOffset)
         params.append(hipExtension)
+        params.append(neckExtension)
         return params
     }()
     

@@ -7,11 +7,11 @@
         "minZ" : 0,
         "label" : "Background",
         "w" : 1,
-        "x" : 0.96071082353591919,
+        "x" : 0,
         "maxY" : 1,
-        "y" : 0.96082574129104614,
+        "y" : 0,
         "minY" : 0,
-        "z" : 0.96067172288894653,
+        "z" : 0,
         "maxX" : 1,
         "controlType" : "colorpicker",
         "minX" : 0,
@@ -45,17 +45,16 @@
       "base" : {
         "controlType" : "toggle",
         "label" : "Fullscreen",
-        "value" : true
+        "value" : false
       }
     },
     {
       "type" : "string",
       "base" : {
         "label" : "Video Input",
-        "value" : "FaceTime HD  ",
+        "value" : "BRIO 4K Stream Edition",
         "options" : [
-          "FaceTime HD  ",
-          "Logitech BRIO"
+          "BRIO 4K Stream Edition"
         ],
         "controlType" : "dropdown"
       }
@@ -156,6 +155,16 @@
         "minX" : 0,
         "label" : "Camera Offset",
         "minY" : 0
+      }
+    },
+    {
+      "type" : "float",
+      "base" : {
+        "label" : "Hip Extension",
+        "value" : 5.648226261138916,
+        "min" : 0,
+        "controlType" : "slider",
+        "max" : 500
       }
     }
   ]
