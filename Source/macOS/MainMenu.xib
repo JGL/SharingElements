@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="18122" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="19162" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="18122"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="19162"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -12,7 +13,7 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <customObject id="irT-1T-yP4" userLabel="App Delegate" customClass="AppDelegate" customModule="BodyElements" customModuleProvider="target">
+        <customObject id="irT-1T-yP4" userLabel="App Delegate" customClass="AppDelegate" customModule="SharingElements" customModuleProvider="target">
             <connections>
                 <outlet property="presetsMenu" destination="1QK-jH-3cB" id="Dcz-Qj-rkk"/>
             </connections>
@@ -79,9 +80,14 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="3wY-QY-YPv"/>
-                            <menuItem title="Open Preset" id="9rz-Tu-EmO">
+                            <menuItem title="Open Preset" keyEquivalent="o" id="dz3-CJ-hT6">
+                                <connections>
+                                    <action selector="openPreset:" target="irT-1T-yP4" id="hwK-Y4-H3t"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Load Preset" id="9rz-Tu-EmO">
                                 <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Open Preset" id="1QK-jH-3cB">
+                                <menu key="submenu" title="Load Preset" id="1QK-jH-3cB">
                                     <items>
                                         <menuItem title="Item" id="Wbs-7m-JH6">
                                             <modifierMask key="keyEquivalentModifierMask"/>

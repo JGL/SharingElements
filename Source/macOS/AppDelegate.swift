@@ -51,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.title = ""
         window.makeKeyAndOrderFront(nil)
         
-        setupPresetsMenu()
+        self.setupPresetsMenu()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -95,7 +95,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let presetName = input.stringValue
         if !presetName.isEmpty, response == NSApplication.ModalResponse.alertFirstButtonReturn {
             renderer.savePreset(presetName)
-            setupPresetsMenu()
+            self.setupPresetsMenu()
         }
     }
     
@@ -114,6 +114,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         })
     }
     
+    @IBAction func openPreset(_ sender: NSMenuItem) {
+        guard let renderer = self.renderer else { return }
+        let openPanel = NSOpenPanel()
+        openPanel.canChooseFiles = false
+        openPanel.canChooseDirectories = true
+        openPanel.allowsMultipleSelection = false
+        openPanel.canCreateDirectories = false
+        openPanel.begin(completionHandler: { (result: NSApplication.ModalResponse) in
+            if result == .OK {
+                if let url = openPanel.url {
+                    renderer.load(url)
+                }
+            }
+            openPanel.close()
+        })
+    }
     
     func setupPresetsMenu() {
         guard let menu = presetsMenu else { return }
@@ -125,7 +141,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
         menu.removeAllItems()
-        menu.addItem(withTitle: "Default", action: #selector(loadPreset), keyEquivalent: "")
+        menu.addItem(withTitle: "Default", action: #selector(self.loadPreset), keyEquivalent: "")
         menu.addItem(NSMenuItem.separator())
         
         let fm = FileManager.default
@@ -138,7 +154,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                     var isDirectory: ObjCBool = false
                     if fm.fileExists(atPath: presetUrl.path, isDirectory: &isDirectory) {
                         if isDirectory.boolValue {
-                            let item = NSMenuItem(title: preset, action: #selector(loadPreset), keyEquivalent: "")
+                            let item = NSMenuItem(title: preset, action: #selector(self.loadPreset), keyEquivalent: "")
                             if preset == activePresetName {
                                 item.state = .on
                             }
